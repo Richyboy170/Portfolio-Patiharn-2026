@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Computer Engineer Portfolio
+
+A modern, responsive portfolio website built with Next.js 15, TypeScript, and Tailwind CSS, showcasing international experience and technical expertise.
+
+## Features
+
+- Modern Design with gradient effects and smooth animations
+- Fully Responsive for all devices
+- International Journey timeline (America, Canada, Thailand)
+- Comprehensive sections: Hero, About, Skills, Projects, Journey, Contact
+- SEO Optimized with meta tags
+- Smooth animations and transitions
+- Built with Next.js 15, TypeScript, Tailwind CSS
 
 ## Getting Started
 
-First, run the development server:
+### Installation
+
+Navigate to the project directory and install dependencies:
+
+```bash
+npm install
+```
+
+### Development
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Customization
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Personal Information
 
-## Learn More
+Update in `app/page.tsx`:
 
-To learn more about Next.js, take a look at the following resources:
+1. **Contact Details** (line 379-395): Email, LinkedIn, GitHub URLs
+2. **Metadata** in `app/layout.tsx`: Your name and information
+3. **Projects**: Add your actual projects
+4. **Skills**: Customize to match your expertise
+5. **Journey**: Update timeline with your experience
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Styling
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Colors: Edit `app/globals.css`
+- Fonts: Modify `app/layout.tsx`
+- Layout: Adjust in `app/page.tsx`
 
-## Deploy on Vercel
+## Build for Production
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run build
+npm start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push code to GitHub
+2. Import on [Vercel](https://vercel.com)
+3. Deploy
+
+### Other Platforms
+- Netlify
+- AWS Amplify
+- Railway
+- DigitalOcean
+
+## Tech Stack
+
+- Framework: Next.js 15 (App Router)
+- Language: TypeScript
+- Styling: Tailwind CSS
+- Fonts: Geist Sans & Geist Mono
+
+## Key Highlights
+
+1. International Experience across 3 countries
+2. Big Vision statement
+3. Thailand-focused job search
+4. Comprehensive technical skills
+5. Professional, modern design
+
+## Performance
+
+- Fast page loads with Turbopack
+- Optimized assets
+- Smooth 60fps animations
+
+Built with passion in Thailand
