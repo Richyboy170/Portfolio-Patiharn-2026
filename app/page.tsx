@@ -37,6 +37,7 @@ export default function Home() {
             <a href="#about" className="text-slate-300 hover:text-cyan-400 transition-colors">{t.nav.about}</a>
             <a href="#skills" className="text-slate-300 hover:text-cyan-400 transition-colors">{t.nav.skills}</a>
             <a href="#journey" className="text-slate-300 hover:text-cyan-400 transition-colors">{t.nav.journey}</a>
+            <a href="#global-footprint" className="text-slate-300 hover:text-cyan-400 transition-colors">🌍 World</a>
             <a href="#projects" className="text-slate-300 hover:text-cyan-400 transition-colors">{t.nav.projects}</a>
             <a href="#awards" className="text-slate-300 hover:text-cyan-400 transition-colors">{t.nav.awards}</a>
             <a href="#contact" className="text-slate-300 hover:text-cyan-400 transition-colors">{t.nav.contact}</a>
@@ -126,7 +127,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="aspect-square relative rounded-2xl shadow-2xl shadow-blue-500/20 overflow-hidden border-4 border-cyan-500/30">
+              <div className="aspect-square relative rounded-2xl shadow-2xl shadow-blue-500/20 overflow-hidden border-4 border-cyan-500/30 mb-4">
                 <Image
                   src="/images/profile/profile-formal.jpg"
                   alt="Patiharn Liangkobkit"
@@ -134,6 +135,31 @@ export default function Home() {
                   className="object-cover"
                   priority
                 />
+              </div>
+
+              {/* Additional Profile Photos */}
+              <div className="grid grid-cols-3 gap-3">
+                <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-blue-500/30 hover:border-cyan-400/50 transition-all bg-slate-800">
+                  <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                    <span className="text-2xl">📚</span>
+                  </div>
+                  {/* PLACEHOLDER: /public/images/profile/studying.jpg */}
+                  {/* <Image src="/images/profile/studying.jpg" alt="Studying" fill className="object-cover" /> */}
+                </div>
+                <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-blue-500/30 hover:border-cyan-400/50 transition-all bg-slate-800">
+                  <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                    <span className="text-2xl">💻</span>
+                  </div>
+                  {/* PLACEHOLDER: /public/images/profile/coding.jpg */}
+                  {/* <Image src="/images/profile/coding.jpg" alt="Coding" fill className="object-cover" /> */}
+                </div>
+                <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-blue-500/30 hover:border-cyan-400/50 transition-all bg-slate-800">
+                  <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                    <span className="text-2xl">🎯</span>
+                  </div>
+                  {/* PLACEHOLDER: /public/images/profile/hobby.jpg */}
+                  {/* <Image src="/images/profile/hobby.jpg" alt="Hobbies" fill className="object-cover" /> */}
+                </div>
               </div>
             </div>
 
@@ -375,12 +401,30 @@ export default function Home() {
                     <h3 className="text-2xl font-bold text-cyan-400 mb-2">KMUTT - King Mongkut&apos;s University</h3>
                     <p className="text-slate-400 text-sm mb-2">August 2023 - Present</p>
                     <p className="text-slate-300 mb-3">BE in Computer Engineering - Current GPA 3.72</p>
-                    <ul className="text-slate-400 space-y-1">
+                    <ul className="text-slate-400 space-y-1 mb-4">
                       <li>• Teacher Assistant at INNO-X Lab</li>
                       <li>• Formula Racing Team Member</li>
                       <li>• Multiple hackathon wins (Top 10)</li>
                       <li>• Data Science & ML specialization</li>
                     </ul>
+
+                    {/* KMUTT Photo Placeholders */}
+                    <div className="grid grid-cols-2 gap-3 mt-4">
+                      <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-slate-800 border border-blue-500/30">
+                        <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                          <span className="text-3xl">🏫</span>
+                        </div>
+                        {/* PLACEHOLDER: /public/images/journey/kmutt-campus.jpg */}
+                        {/* <Image src="/images/journey/kmutt-campus.jpg" alt="KMUTT Campus" fill className="object-cover" /> */}
+                      </div>
+                      <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-slate-800 border border-blue-500/30">
+                        <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                          <span className="text-3xl">🏎️</span>
+                        </div>
+                        {/* PLACEHOLDER: /public/images/journey/kmutt-racing.jpg */}
+                        {/* <Image src="/images/journey/kmutt-racing.jpg" alt="Formula Racing Team" fill className="object-cover" /> */}
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-cyan-500 rounded-full border-4 border-slate-950 hidden md:block"></div>
@@ -404,17 +448,283 @@ export default function Home() {
                     <h3 className="text-2xl font-bold text-cyan-300 mb-2">University of Toronto - Current</h3>
                     <p className="text-slate-300 text-sm mb-2">Sep 2025 - Dec 2025 (1 term)</p>
                     <p className="text-slate-200 mb-3 font-semibold">SEED Scholarship Exchange Program ($10,200 CAD)</p>
-                    <ul className="text-slate-300 space-y-1">
+                    <ul className="text-slate-300 space-y-1 mb-4">
                       <li>• Advanced Machine Learning</li>
                       <li>• Deep Learning Fundamentals</li>
                       <li>• Python Programming in Depth</li>
                       <li>• AI Conference attendance (UTMIST)</li>
                       <li>• International research exposure</li>
                     </ul>
+
+                    {/* Canada Photo Placeholders */}
+                    <div className="grid grid-cols-2 gap-3 mt-4">
+                      <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-slate-800 border border-cyan-500/30">
+                        <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                          <span className="text-3xl">🍁</span>
+                        </div>
+                        {/* PLACEHOLDER: /public/images/journey/canada-campus.jpg */}
+                        {/* <Image src="/images/journey/canada-campus.jpg" alt="UofT Campus" fill className="object-cover" /> */}
+                      </div>
+                      <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-slate-800 border border-cyan-500/30">
+                        <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                          <span className="text-3xl">🏙️</span>
+                        </div>
+                        {/* PLACEHOLDER: /public/images/journey/canada-toronto.jpg */}
+                        {/* <Image src="/images/journey/canada-toronto.jpg" alt="Toronto city" fill className="object-cover" /> */}
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full border-4 border-slate-950 animate-pulse hidden md:block"></div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Global Footprint Section */}
+      <section id="global-footprint" className="py-20 px-6 bg-gradient-to-br from-slate-900 to-blue-950/30">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+            🌍 My Global Footprint
+          </h2>
+          <p className="text-center text-slate-300 text-lg mb-16 max-w-3xl mx-auto">
+            From Thailand to North America and beyond - Every journey has shaped my perspective,
+            built lifelong connections, and expanded my understanding of the world
+          </p>
+
+          {/* World Map / Countries Grid */}
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            {/* Thailand */}
+            <div className="group bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl overflow-hidden hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105">
+              <div className="relative aspect-[4/3] bg-slate-800">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/20 backdrop-blur-sm">
+                  <div className="text-center">
+                    <span className="text-6xl mb-2 block">🇹🇭</span>
+                    <p className="text-cyan-400 font-semibold text-sm">ADD YOUR THAILAND PHOTOS HERE</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/world/thailand-1.jpg */}
+                {/* <Image src="/images/world/thailand-1.jpg" alt="Thailand experiences" fill className="object-cover" /> */}
+              </div>
+              <div className="p-5">
+                <h3 className="text-2xl font-bold text-cyan-400 mb-2">🇹🇭 Thailand - Home</h3>
+                <p className="text-slate-300 text-sm mb-3">Bangkok, Khon Kaen, and beyond</p>
+                <ul className="text-slate-400 text-sm space-y-1">
+                  <li>• Born and raised in Bangkok</li>
+                  <li>• Studying at KMUTT</li>
+                  <li>• Hackathon experiences across Thailand</li>
+                  <li>• Rich cultural heritage</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* United States */}
+            <div className="group bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl overflow-hidden hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105">
+              <div className="relative aspect-[4/3] bg-slate-800">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/20 backdrop-blur-sm">
+                  <div className="text-center">
+                    <span className="text-6xl mb-2 block">🇺🇸</span>
+                    <p className="text-cyan-400 font-semibold text-sm">ADD YOUR USA PHOTOS HERE</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/world/usa-1.jpg */}
+                {/* <Image src="/images/world/usa-1.jpg" alt="USA experiences" fill className="object-cover" /> */}
+              </div>
+              <div className="p-5">
+                <h3 className="text-2xl font-bold text-cyan-400 mb-2">🇺🇸 United States</h3>
+                <p className="text-slate-300 text-sm mb-3">Jackson, Tennessee - 1 Year Exchange</p>
+                <ul className="text-slate-400 text-sm space-y-1">
+                  <li>• High school exchange program (2021-2022)</li>
+                  <li>• Cultural immersion experience</li>
+                  <li>• American host family connection</li>
+                  <li>• English proficiency development</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Canada */}
+            <div className="group bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl overflow-hidden hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105">
+              <div className="relative aspect-[4/3] bg-slate-800">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/20 backdrop-blur-sm">
+                  <div className="text-center">
+                    <span className="text-6xl mb-2 block">🇨🇦</span>
+                    <p className="text-cyan-400 font-semibold text-sm">ADD YOUR CANADA PHOTOS HERE</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/world/canada-1.jpg */}
+                {/* <Image src="/images/world/canada-1.jpg" alt="Canada experiences" fill className="object-cover" /> */}
+              </div>
+              <div className="p-5">
+                <h3 className="text-2xl font-bold text-cyan-400 mb-2">🇨🇦 Canada</h3>
+                <p className="text-slate-300 text-sm mb-3">Toronto - Current Exchange Student</p>
+                <ul className="text-slate-400 text-sm space-y-1">
+                  <li>• University of Toronto (Sep-Dec 2025)</li>
+                  <li>• SEED Scholarship recipient</li>
+                  <li>• Machine Learning & AI studies</li>
+                  <li>• International research exposure</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Travel Highlights Gallery */}
+          <div className="mb-12">
+            <h3 className="text-3xl font-bold text-center mb-8 text-cyan-400">
+              📸 Travel Highlights & Cultural Experiences
+            </h3>
+            <div className="grid md:grid-cols-4 gap-4">
+              {/* Photo Placeholder 1 */}
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-800 border border-blue-500/30 hover:border-cyan-400/50 transition-all group">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                  <div className="text-center">
+                    <span className="text-4xl mb-2 block">🏙️</span>
+                    <p className="text-cyan-400 font-semibold text-xs px-2">City Exploration</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/travel/city-1.jpg */}
+              </div>
+
+              {/* Photo Placeholder 2 */}
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-800 border border-blue-500/30 hover:border-cyan-400/50 transition-all group">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                  <div className="text-center">
+                    <span className="text-4xl mb-2 block">🍜</span>
+                    <p className="text-cyan-400 font-semibold text-xs px-2">Cultural Food</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/travel/food-1.jpg */}
+              </div>
+
+              {/* Photo Placeholder 3 */}
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-800 border border-blue-500/30 hover:border-cyan-400/50 transition-all group">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                  <div className="text-center">
+                    <span className="text-4xl mb-2 block">🎓</span>
+                    <p className="text-cyan-400 font-semibold text-xs px-2">Campus Life</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/travel/campus-1.jpg */}
+              </div>
+
+              {/* Photo Placeholder 4 */}
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-800 border border-blue-500/30 hover:border-cyan-400/50 transition-all group">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                  <div className="text-center">
+                    <span className="text-4xl mb-2 block">🌆</span>
+                    <p className="text-cyan-400 font-semibold text-xs px-2">Landmarks</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/travel/landmark-1.jpg */}
+              </div>
+
+              {/* Photo Placeholder 5 */}
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-800 border border-blue-500/30 hover:border-cyan-400/50 transition-all group">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                  <div className="text-center">
+                    <span className="text-4xl mb-2 block">👥</span>
+                    <p className="text-cyan-400 font-semibold text-xs px-2">Friends</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/travel/friends-1.jpg */}
+              </div>
+
+              {/* Photo Placeholder 6 */}
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-800 border border-blue-500/30 hover:border-cyan-400/50 transition-all group">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                  <div className="text-center">
+                    <span className="text-4xl mb-2 block">🎉</span>
+                    <p className="text-cyan-400 font-semibold text-xs px-2">Events</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/travel/event-1.jpg */}
+              </div>
+
+              {/* Photo Placeholder 7 */}
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-800 border border-blue-500/30 hover:border-cyan-400/50 transition-all group">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                  <div className="text-center">
+                    <span className="text-4xl mb-2 block">🏞️</span>
+                    <p className="text-cyan-400 font-semibold text-xs px-2">Nature</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/travel/nature-1.jpg */}
+              </div>
+
+              {/* Photo Placeholder 8 */}
+              <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-800 border border-blue-500/30 hover:border-cyan-400/50 transition-all group">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                  <div className="text-center">
+                    <span className="text-4xl mb-2 block">✈️</span>
+                    <p className="text-cyan-400 font-semibold text-xs px-2">Adventures</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/travel/adventure-1.jpg */}
+              </div>
+            </div>
+          </div>
+
+          {/* International Connections */}
+          <div className="bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-cyan-500/30 rounded-2xl p-8">
+            <h3 className="text-3xl font-bold text-center mb-6 text-cyan-400">
+              🤝 International Connections & Friends
+            </h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* Connection Placeholder 1 */}
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-800 border border-blue-500/30">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                  <div className="text-center p-4">
+                    <span className="text-5xl mb-2 block">👨‍👩‍👦</span>
+                    <p className="text-cyan-400 font-semibold">Host Family</p>
+                    <p className="text-slate-400 text-sm mt-1">Special moments with my American family</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/connections/host-family-2.jpg */}
+              </div>
+
+              {/* Connection Placeholder 2 */}
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-800 border border-blue-500/30">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                  <div className="text-center p-4">
+                    <span className="text-5xl mb-2 block">🌏</span>
+                    <p className="text-cyan-400 font-semibold">International Classmates</p>
+                    <p className="text-slate-400 text-sm mt-1">Friends from around the world</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/connections/international-friends-1.jpg */}
+              </div>
+
+              {/* Connection Placeholder 3 */}
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-800 border border-blue-500/30">
+                <div className="absolute inset-0 flex items-center justify-center bg-blue-900/30 backdrop-blur-sm">
+                  <div className="text-center p-4">
+                    <span className="text-5xl mb-2 block">🎊</span>
+                    <p className="text-cyan-400 font-semibold">Cultural Celebrations</p>
+                    <p className="text-slate-400 text-sm mt-1">Sharing traditions and festivities</p>
+                  </div>
+                </div>
+                {/* PLACEHOLDER: /public/images/connections/celebration-1.jpg */}
+              </div>
+            </div>
+          </div>
+
+          {/* Stats Summary */}
+          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center p-6 bg-blue-950/30 border border-cyan-500/30 rounded-xl">
+              <div className="text-4xl font-bold text-cyan-400 mb-2">3+</div>
+              <div className="text-slate-300 text-sm">Countries Experienced</div>
+            </div>
+            <div className="text-center p-6 bg-blue-950/30 border border-cyan-500/30 rounded-xl">
+              <div className="text-4xl font-bold text-cyan-400 mb-2">2</div>
+              <div className="text-slate-300 text-sm">International Exchanges</div>
+            </div>
+            <div className="text-center p-6 bg-blue-950/30 border border-cyan-500/30 rounded-xl">
+              <div className="text-4xl font-bold text-cyan-400 mb-2">1000+</div>
+              <div className="text-slate-300 text-sm">Days Living Abroad</div>
+            </div>
+            <div className="text-center p-6 bg-blue-950/30 border border-cyan-500/30 rounded-xl">
+              <div className="text-4xl font-bold text-cyan-400 mb-2">∞</div>
+              <div className="text-slate-300 text-sm">Lifelong Connections</div>
             </div>
           </div>
         </div>
