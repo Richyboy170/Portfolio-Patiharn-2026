@@ -6,6 +6,7 @@ export const translations = {
       skills: "Skills",
       journey: "Journey",
       projects: "Projects",
+      activities: "Activities",
       awards: "Awards",
       contact: "Contact"
     },
@@ -47,11 +48,59 @@ export const translations = {
     skills: {
       title: "Technical Expertise",
       aiTitle: "AI & Machine Learning",
+      aiItems: [
+        "Machine Learning (U of T)",
+        "Deep Learning & Neural Networks",
+        "LLMs & Transformers",
+        "TensorFlow & PyTorch",
+        "Computer Vision & NLP",
+        "Recommendation Systems"
+      ],
       dataTitle: "Data Science",
+      dataItems: [
+        "Data Modeling & Analysis",
+        "Python (3+ years)",
+        "SQL & NoSQL Databases",
+        "Data Visualization",
+        "Statistical Analysis",
+        "Big Data Processing"
+      ],
       webTitle: "Full Stack Development",
+      webItems: [
+        "Next.js & React",
+        "TypeScript & JavaScript",
+        "Tailwind CSS",
+        "RESTful APIs",
+        "Responsive Design",
+        "Figma (UI/UX)"
+      ],
       cloudTitle: "Cloud & Infrastructure",
+      cloudItems: [
+        "Google Cloud Platform",
+        "Alibaba Cloud (ACA Certified)",
+        "Vercel Deployment",
+        "Git & GitHub",
+        "CI/CD Pipelines",
+        "Docker Basics"
+      ],
       aiToolsTitle: "AI Tools & APIs",
-      softTitle: "Professional Skills"
+      aiToolsItems: [
+        "Claude API (Anthropic)",
+        "Hugging Face Transformers",
+        "BERT & Attention Mechanisms",
+        "Image Captioning Models",
+        "Encoder-Decoder Architecture",
+        "Edge AI & Visualization"
+      ],
+      softTitle: "Professional Skills",
+      softItems: [
+        "Project Management",
+        "Team Collaboration",
+        "Teaching & Mentoring (TA)",
+        "Entrepreneurial Mindset",
+        "Problem Solving",
+        "English (IELTS 6.5, DET 125)"
+      ]
     },
 
     // Journey Section
@@ -120,6 +169,60 @@ export const translations = {
       }
     },
 
+    // Activities Section
+    activities: {
+      title: "Activities & Global Impact",
+      subtitle: "Beyond coding - exploring the world through music, volunteering, and cultural exchange",
+      stat1: "3",
+      stat1Label: "Countries Lived In",
+      stat1Sub: "Thailand • USA • Canada",
+      stat2: "10+",
+      stat2Label: "International Events",
+      stat2Sub: "Hackathons • Conferences • Cultural",
+      stat3: "100+",
+      stat3Label: "Hours Volunteering",
+      stat3Sub: "Community Service & Outreach",
+      chickenKnight: {
+        title: "Chicken Knight Volunteer",
+        desc: "Community service cooking and serving meals for those in need",
+        clickText: "Click to see photos & impact"
+      },
+      musicBand: {
+        title: "Music & Band Performance",
+        desc: "Guitarist and performer in school band - showcasing creativity beyond tech",
+        clickText: "Click to see performances"
+      },
+      placeholderTitle: "Your Activity Title",
+      placeholderDesc: "Description of your activity or club involvement",
+      placeholderNote: "Placeholder - Ready for your content!",
+      internationalTitle: "My International Journey",
+      internationalQuote: "Experiencing three different education systems across three continents has shaped my global mindset and technical expertise.",
+      thailand: {
+        name: "Thailand",
+        subtitle: "Home Base • KMUTT Student",
+        point1: "Multiple hackathon wins",
+        point2: "Teaching Assistant",
+        point3: "Formula Racing Team",
+        point4: "Community volunteer"
+      },
+      usa: {
+        name: "United States",
+        subtitle: "1 Year Exchange • Jackson, TN",
+        point1: "Cultural immersion",
+        point2: "Host family experience",
+        point3: "American education system",
+        point4: "Global perspective"
+      },
+      canada: {
+        name: "Canada",
+        subtitle: "1 Semester • University of Toronto",
+        point1: "$10,200 SEED Scholarship",
+        point2: "Machine Learning courses",
+        point3: "AI conference attendance",
+        point4: "Research collaboration"
+      }
+    },
+
     // Awards Section
     awards: {
       title: "Awards & Recognition",
@@ -175,6 +278,7 @@ export const translations = {
       skills: "ทักษะ",
       journey: "เส้นทาง",
       projects: "ผลงาน",
+      activities: "กิจกรรม",
       awards: "รางวัล",
       contact: "ติดต่อ"
     },
@@ -216,11 +320,59 @@ export const translations = {
     skills: {
       title: "ความเชี่ยวชาญทางเทคนิค",
       aiTitle: "AI และ Machine Learning",
+      aiItems: [
+        "Machine Learning (มหาวิทยาลัยโตรอนโต)",
+        "Deep Learning และ Neural Networks",
+        "LLMs และ Transformers",
+        "TensorFlow และ PyTorch",
+        "Computer Vision และ NLP",
+        "ระบบแนะนำ"
+      ],
       dataTitle: "วิทยาศาสตร์ข้อมูล",
+      dataItems: [
+        "การสร้างแบบจำลองและวิเคราะห์ข้อมูล",
+        "Python (3+ ปี)",
+        "ฐานข้อมูล SQL และ NoSQL",
+        "การแสดงภาพข้อมูล",
+        "การวิเคราะห์เชิงสถิติ",
+        "การประมวลผล Big Data"
+      ],
       webTitle: "Full Stack Development",
+      webItems: [
+        "Next.js และ React",
+        "TypeScript และ JavaScript",
+        "Tailwind CSS",
+        "RESTful APIs",
+        "Responsive Design",
+        "Figma (UI/UX)"
+      ],
       cloudTitle: "Cloud และโครงสร้างพื้นฐาน",
+      cloudItems: [
+        "Google Cloud Platform",
+        "Alibaba Cloud (รับรอง ACA)",
+        "Vercel Deployment",
+        "Git และ GitHub",
+        "CI/CD Pipelines",
+        "Docker พื้นฐาน"
+      ],
       aiToolsTitle: "เครื่องมือ AI และ APIs",
-      softTitle: "ทักษะอาชีพ"
+      aiToolsItems: [
+        "Claude API (Anthropic)",
+        "Hugging Face Transformers",
+        "BERT และกลไก Attention",
+        "โมเดล Image Captioning",
+        "สถาปัตยกรรม Encoder-Decoder",
+        "Edge AI และการแสดงภาพ"
+      ],
+      softTitle: "ทักษะอาชีพ",
+      softItems: [
+        "การจัดการโครงการ",
+        "การทำงานเป็นทีม",
+        "การสอนและให้คำปรึกษา (ผู้ช่วยสอน)",
+        "ความคิดเชิงธุรกิจ",
+        "การแก้ปัญหา",
+        "ภาษาอังกฤษ (IELTS 6.5, DET 125)"
+      ]
     },
 
     // Journey Section
@@ -286,6 +438,60 @@ export const translations = {
         title: "เว็บไซต์โชว์เคสเสื้อยืด",
         desc: "โชว์เคสอีคอมเมิร์ซด้วยระบบออกแบบ Figma",
         link: "ดูเว็บไซต์ →"
+      }
+    },
+
+    // Activities Section
+    activities: {
+      title: "กิจกรรมและผลกระทบระดับโลก",
+      subtitle: "นอกเหนือจากการเขียนโค้ด - สำรวจโลกผ่านดนตรี การอาสาสมัคร และการแลกเปลี่ยนวัฒนธรรม",
+      stat1: "3",
+      stat1Label: "ประเทศที่อาศัย",
+      stat1Sub: "ไทย • สหรัฐฯ • แคนาดา",
+      stat2: "10+",
+      stat2Label: "กิจกรรมระดับนานาชาติ",
+      stat2Sub: "แฮ็กกาธอน • การประชุม • วัฒนธรรม",
+      stat3: "100+",
+      stat3Label: "ชั่วโมงอาสาสมัคร",
+      stat3Sub: "บริการชุมชนและการเข้าถึง",
+      chickenKnight: {
+        title: "อาสาสมัคร Chicken Knight",
+        desc: "บริการชุมชนทำอาหารและเสิร์ฟอาหารให้ผู้ที่ต้องการความช่วยเหลือ",
+        clickText: "คลิกเพื่อดูภาพและผลกระทบ"
+      },
+      musicBand: {
+        title: "ดนตรีและการแสดงวง",
+        desc: "นักกีตาร์และนักแสดงในวงดนตรีโรงเรียน - แสดงความคิดสร้างสรรค์นอกเหนือจากเทค",
+        clickText: "คลิกเพื่อดูการแสดง"
+      },
+      placeholderTitle: "ชื่อกิจกรรมของคุณ",
+      placeholderDesc: "คำอธิบายกิจกรรมหรือการมีส่วนร่วมในชมรมของคุณ",
+      placeholderNote: "ตัวยึดตำแหน่ง - พร้อมสำหรับเนื้อหาของคุณ!",
+      internationalTitle: "การเดินทางระหว่างประเทศของฉัน",
+      internationalQuote: "การได้สัมผัสระบบการศึกษาที่แตกต่างกันสามระบบในสามทวีปได้หล่อหลอมทัศนคติระดับโลกและความเชี่ยวชาญทางเทคนิคของฉัน",
+      thailand: {
+        name: "ประเทศไทย",
+        subtitle: "ฐานบ้าน • นักศึกษา มจธ.",
+        point1: "ชนะแฮ็กกาธอนหลายครั้ง",
+        point2: "ผู้ช่วยสอน",
+        point3: "ทีม Formula Racing",
+        point4: "อาสาสมัครชุมชน"
+      },
+      usa: {
+        name: "สหรัฐอเมริกา",
+        subtitle: "แลกเปลี่ยน 1 ปี • Jackson, TN",
+        point1: "การดื่มด่ำวัฒนธรรม",
+        point2: "ประสบการณ์ครอบครัวเจ้าภาพ",
+        point3: "ระบบการศึกษาอเมริกัน",
+        point4: "มุมมองระดับโลก"
+      },
+      canada: {
+        name: "แคนาดา",
+        subtitle: "1 เทอม • มหาวิทยาลัยโตรอนโต",
+        point1: "ทุน SEED $10,200",
+        point2: "หลักสูตร Machine Learning",
+        point3: "เข้าร่วมการประชุม AI",
+        point4: "ความร่วมมือด้านการวิจัย"
       }
     },
 

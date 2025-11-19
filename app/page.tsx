@@ -2,16 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { translations, Language } from './translations';
+import { getContent, Language } from '@/content';
 import Modal from '@/components/Modal';
 
-type ModalType = 'usa-exchange' | 'kmutt' | 'uoft' | 'seed-scholarship' | 'cyber-warrior' | 'esan-hackathon' | 'tron-tracker' | 'crosswalk-app' | null;
+type ModalType = 'usa-exchange' | 'kmutt' | 'uoft' | 'seed-scholarship' | 'cyber-warrior' | 'esan-hackathon' | 'tron-tracker' | 'crosswalk-app' | 'chicken-knight' | 'music-band' | null;
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [lang, setLang] = useState<Language>('en');
   const [activeModal, setActiveModal] = useState<ModalType>(null);
-  const t = translations[lang];
+  const [isDark, setIsDark] = useState(true); // true = dark theme, false = light theme
+  const t = getContent(lang);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,24 +26,100 @@ export default function Home() {
     setLang(lang === 'en' ? 'th' : 'en');
   };
 
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+  };
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setIsDark(savedTheme === 'dark');
+    }
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
+    <div className={`min-h-screen ${
+      isDark
+        ? 'bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white'
+        : 'bg-gradient-to-br from-white via-sky-50 to-blue-50 text-slate-900'
+    } relative overflow-hidden transition-colors duration-500`}>
+      {/* Animated Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className={`absolute top-20 left-10 w-72 h-72 ${
+          isDark ? 'bg-blue-500/10' : 'bg-sky-300/20'
+        } rounded-full blur-3xl animate-pulse`}></div>
+        <div className={`absolute bottom-20 right-10 w-96 h-96 ${
+          isDark ? 'bg-cyan-500/10' : 'bg-blue-300/20'
+        } rounded-full blur-3xl animate-pulse delay-700`}></div>
+        <div className={`absolute top-1/2 left-1/2 w-80 h-80 ${
+          isDark ? 'bg-purple-500/10' : 'bg-indigo-300/20'
+        } rounded-full blur-3xl animate-pulse delay-1000`}></div>
+      </div>
+
       {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        scrolled
+          ? isDark
+            ? 'bg-slate-950/95 backdrop-blur-sm shadow-lg'
+            : 'bg-white/95 backdrop-blur-sm shadow-lg border-b border-sky-200'
+          : 'bg-transparent'
+      }`}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+          <h1 className={`text-2xl font-bold ${
+            isDark
+              ? 'bg-gradient-to-r from-blue-400 to-cyan-300'
+              : 'bg-gradient-to-r from-sky-600 to-blue-500'
+          } bg-clip-text text-transparent`}>
             Patiharn L.
           </h1>
-          <div className="hidden md:flex gap-8 items-center">
-            <a href="#about" className="text-slate-300 hover:text-cyan-400 transition-colors">{t.nav.about}</a>
-            <a href="#skills" className="text-slate-300 hover:text-cyan-400 transition-colors">{t.nav.skills}</a>
-            <a href="#journey" className="text-slate-300 hover:text-cyan-400 transition-colors">{t.nav.journey}</a>
-            <a href="#projects" className="text-slate-300 hover:text-cyan-400 transition-colors">{t.nav.projects}</a>
-            <a href="#awards" className="text-slate-300 hover:text-cyan-400 transition-colors">{t.nav.awards}</a>
-            <a href="#contact" className="text-slate-300 hover:text-cyan-400 transition-colors">{t.nav.contact}</a>
+          <div className="hidden md:flex gap-6 items-center">
+            <a href="#about" className={`${
+              isDark ? 'text-slate-300 hover:text-cyan-400' : 'text-slate-700 hover:text-sky-600'
+            } transition-colors font-medium`}>{t.nav.about}</a>
+            <a href="#skills" className={`${
+              isDark ? 'text-slate-300 hover:text-cyan-400' : 'text-slate-700 hover:text-sky-600'
+            } transition-colors font-medium`}>{t.nav.skills}</a>
+            <a href="#journey" className={`${
+              isDark ? 'text-slate-300 hover:text-cyan-400' : 'text-slate-700 hover:text-sky-600'
+            } transition-colors font-medium`}>{t.nav.journey}</a>
+            <a href="#projects" className={`${
+              isDark ? 'text-slate-300 hover:text-cyan-400' : 'text-slate-700 hover:text-sky-600'
+            } transition-colors font-medium`}>{t.nav.projects}</a>
+            <a href="#academic" className={`${
+              isDark ? 'text-slate-300 hover:text-cyan-400' : 'text-slate-700 hover:text-sky-600'
+            } transition-colors font-medium`}>{t.nav.academic}</a>
+            <a href="#activities" className={`${
+              isDark ? 'text-slate-300 hover:text-cyan-400' : 'text-slate-700 hover:text-sky-600'
+            } transition-colors font-medium`}>{t.nav.activities}</a>
+            <a href="#awards" className={`${
+              isDark ? 'text-slate-300 hover:text-cyan-400' : 'text-slate-700 hover:text-sky-600'
+            } transition-colors font-medium`}>{t.nav.awards}</a>
+            <a href="#contact" className={`${
+              isDark ? 'text-slate-300 hover:text-cyan-400' : 'text-slate-700 hover:text-sky-600'
+            } transition-colors font-medium`}>{t.nav.contact}</a>
+
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className={`p-2.5 ${
+                isDark
+                  ? 'bg-blue-500/10 border border-blue-500/30 text-yellow-300 hover:bg-blue-500/20'
+                  : 'bg-sky-100 border border-sky-300 text-sky-700 hover:bg-sky-200'
+              } rounded-lg transition-all duration-300 text-xl`}
+              aria-label="Toggle theme"
+            >
+              {isDark ? '☀️' : '🌙'}
+            </button>
+
+            {/* Language Toggle */}
             <button
               onClick={toggleLanguage}
-              className="px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-lg text-cyan-400 hover:bg-blue-500/20 transition-all duration-300 font-semibold"
+              className={`px-4 py-2 ${
+                isDark
+                  ? 'bg-blue-500/10 border border-blue-500/30 text-cyan-400 hover:bg-blue-500/20'
+                  : 'bg-sky-100 border border-sky-300 text-sky-700 hover:bg-sky-200'
+              } rounded-lg transition-all duration-300 font-semibold`}
             >
               {lang === 'en' ? '🇹🇭 ไทย' : '🇺🇸 EN'}
             </button>
@@ -53,41 +130,73 @@ export default function Home() {
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center px-6 pt-20">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="mb-8 inline-flex items-center gap-3 px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full">
+          <div className={`mb-8 inline-flex items-center gap-3 px-4 py-2 ${
+            isDark
+              ? 'bg-blue-500/10 border-blue-500/30'
+              : 'bg-green-100 border-green-300'
+          } border rounded-full`}>
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
             </span>
-            <span className="text-slate-300 text-sm">{t.hero.available}</span>
+            <span className={`text-sm font-medium ${
+              isDark ? 'text-slate-300' : 'text-green-800'
+            }`}>{t.hero.available}</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-cyan-300 bg-clip-text text-transparent animate-fade-in">
+          <h1 className={`text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r ${
+            isDark
+              ? 'from-white via-blue-100 to-cyan-300'
+              : 'from-slate-900 via-blue-900 to-sky-700'
+          } bg-clip-text text-transparent animate-fade-in`}>
             {t.hero.name}
           </h1>
 
-          <p className="text-xl md:text-2xl text-slate-300 mb-4 max-w-3xl mx-auto font-semibold">
+          <p className={`text-xl md:text-2xl mb-4 max-w-3xl mx-auto font-semibold ${
+            isDark ? 'text-slate-300' : 'text-slate-800'
+          }`}>
             {t.hero.title}
           </p>
 
-          <p className="text-lg text-slate-400 mb-2">
+          <p className={`text-lg mb-2 ${
+            isDark ? 'text-slate-400' : 'text-slate-600'
+          }`}>
             {t.hero.subtitle}
           </p>
 
-          <p className="text-lg text-slate-400 mb-8 max-w-2xl mx-auto">
+          <p className={`text-lg mb-8 max-w-2xl mx-auto ${
+            isDark ? 'text-slate-400' : 'text-slate-600'
+          }`}>
             {t.hero.locations}
           </p>
 
           <div className="flex flex-wrap justify-center gap-3 mb-8 text-sm">
-            <span className="px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-cyan-300">
+            <span className={`px-4 py-2 border rounded-full font-medium ${
+              isDark
+                ? 'bg-blue-500/10 border-blue-500/30 text-cyan-300'
+                : 'bg-sky-100 border-sky-300 text-sky-800'
+            }`}>
               {t.hero.gpa}
             </span>
-            <span className="px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-cyan-300">
+            <span className={`px-4 py-2 border rounded-full font-medium ${
+              isDark
+                ? 'bg-blue-500/10 border-blue-500/30 text-cyan-300'
+                : 'bg-sky-100 border-sky-300 text-sky-800'
+            }`}>
               {t.hero.scholar}
             </span>
-            <span className="px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-cyan-300">
+            <span className={`px-4 py-2 border rounded-full font-medium ${
+              isDark
+                ? 'bg-blue-500/10 border-blue-500/30 text-cyan-300'
+                : 'bg-sky-100 border-sky-300 text-sky-800'
+            }`}>
               {t.hero.uoft}
             </span>
-            <span className="px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-cyan-300">
+            <span className={`px-4 py-2 border rounded-full font-medium ${
+              isDark
+                ? 'bg-blue-500/10 border-blue-500/30 text-cyan-300'
+                : 'bg-sky-100 border-sky-300 text-sky-800'
+            }`}>
               {t.hero.kmutt}
             </span>
           </div>
@@ -95,22 +204,38 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <a
               href="#contact"
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105"
+              className={`px-8 py-4 font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 ${
+                isDark
+                  ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:shadow-lg hover:shadow-blue-500/50'
+                  : 'bg-gradient-to-r from-sky-600 to-blue-600 text-white hover:shadow-lg hover:shadow-sky-500/50'
+              }`}
             >
               {t.hero.cta1}
             </a>
             <a
               href="#projects"
-              className="px-8 py-4 border-2 border-blue-500 text-blue-400 font-semibold rounded-lg hover:bg-blue-500/10 transition-all duration-300"
+              className={`px-8 py-4 border-2 font-semibold rounded-lg transition-all duration-300 ${
+                isDark
+                  ? 'border-blue-500 text-blue-400 hover:bg-blue-500/10'
+                  : 'border-sky-600 text-sky-700 hover:bg-sky-100'
+              }`}
             >
               {t.hero.cta2}
             </a>
           </div>
 
           {/* Vision Statement */}
-          <div className="mt-16 p-8 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-2xl backdrop-blur-sm">
-            <h2 className="text-3xl font-bold text-cyan-400 mb-4">{t.hero.visionTitle}</h2>
-            <p className="text-lg text-slate-300 leading-relaxed max-w-4xl mx-auto">
+          <div className={`mt-16 p-8 border rounded-2xl backdrop-blur-sm ${
+            isDark
+              ? 'bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border-blue-500/30'
+              : 'bg-gradient-to-br from-sky-50 to-blue-50 border-sky-300'
+          }`}>
+            <h2 className={`text-3xl font-bold mb-4 ${
+              isDark ? 'text-cyan-400' : 'text-sky-800'
+            }`}>{t.hero.visionTitle}</h2>
+            <p className={`text-lg leading-relaxed max-w-4xl mx-auto ${
+              isDark ? 'text-slate-300' : 'text-slate-700'
+            }`}>
               {t.hero.vision}
             </p>
           </div>
@@ -120,13 +245,21 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+          <h2 className={`text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r ${
+            isDark
+              ? 'from-blue-400 to-cyan-300'
+              : 'from-sky-700 to-blue-600'
+          } bg-clip-text text-transparent`}>
             {t.about.title}
           </h2>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="aspect-square relative rounded-2xl shadow-2xl shadow-blue-500/20 overflow-hidden border-4 border-cyan-500/30">
+              <div className={`aspect-square relative rounded-2xl shadow-2xl overflow-hidden border-4 ${
+                isDark
+                  ? 'shadow-blue-500/20 border-cyan-500/30'
+                  : 'shadow-sky-500/30 border-sky-300'
+              }`}>
                 <Image
                   src="/images/profile/profile-formal.jpg"
                   alt="Patiharn Liangkobkit"
@@ -138,29 +271,59 @@ export default function Home() {
             </div>
 
             <div className="space-y-6">
-              <h3 className="text-3xl font-bold text-white">{t.about.heading}</h3>
-              <p className="text-slate-300 text-lg leading-relaxed">
+              <h3 className={`text-3xl font-bold ${
+                isDark ? 'text-white' : 'text-slate-900'
+              }`}>{t.about.heading}</h3>
+              <p className={`text-lg leading-relaxed ${
+                isDark ? 'text-slate-300' : 'text-slate-700'
+              }`}>
                 {t.about.desc1}
               </p>
-              <p className="text-slate-300 text-lg leading-relaxed">
+              <p className={`text-lg leading-relaxed ${
+                isDark ? 'text-slate-300' : 'text-slate-700'
+              }`}>
                 {t.about.desc2}
               </p>
               <div className="grid grid-cols-2 gap-4 pt-4">
-                <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                  <div className="text-3xl font-bold text-cyan-400">{t.about.stat1}</div>
-                  <div className="text-slate-400">{t.about.stat1Label}</div>
+                <div className={`p-4 border rounded-lg ${
+                  isDark
+                    ? 'bg-blue-500/10 border-blue-500/30'
+                    : 'bg-sky-50 border-sky-300'
+                }`}>
+                  <div className={`text-3xl font-bold ${
+                    isDark ? 'text-cyan-400' : 'text-sky-700'
+                  }`}>{t.about.stat1}</div>
+                  <div className={isDark ? 'text-slate-400' : 'text-slate-600'}>{t.about.stat1Label}</div>
                 </div>
-                <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                  <div className="text-3xl font-bold text-cyan-400">{t.about.stat2}</div>
-                  <div className="text-slate-400">{t.about.stat2Label}</div>
+                <div className={`p-4 border rounded-lg ${
+                  isDark
+                    ? 'bg-blue-500/10 border-blue-500/30'
+                    : 'bg-sky-50 border-sky-300'
+                }`}>
+                  <div className={`text-3xl font-bold ${
+                    isDark ? 'text-cyan-400' : 'text-sky-700'
+                  }`}>{t.about.stat2}</div>
+                  <div className={isDark ? 'text-slate-400' : 'text-slate-600'}>{t.about.stat2Label}</div>
                 </div>
-                <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                  <div className="text-3xl font-bold text-cyan-400">{t.about.stat3}</div>
-                  <div className="text-slate-400">{t.about.stat3Label}</div>
+                <div className={`p-4 border rounded-lg ${
+                  isDark
+                    ? 'bg-blue-500/10 border-blue-500/30'
+                    : 'bg-sky-50 border-sky-300'
+                }`}>
+                  <div className={`text-3xl font-bold ${
+                    isDark ? 'text-cyan-400' : 'text-sky-700'
+                  }`}>{t.about.stat3}</div>
+                  <div className={isDark ? 'text-slate-400' : 'text-slate-600'}>{t.about.stat3Label}</div>
                 </div>
-                <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                  <div className="text-3xl font-bold text-cyan-400">{t.about.stat4}</div>
-                  <div className="text-slate-400">{t.about.stat4Label}</div>
+                <div className={`p-4 border rounded-lg ${
+                  isDark
+                    ? 'bg-blue-500/10 border-blue-500/30'
+                    : 'bg-sky-50 border-sky-300'
+                }`}>
+                  <div className={`text-3xl font-bold ${
+                    isDark ? 'text-cyan-400' : 'text-sky-700'
+                  }`}>{t.about.stat4}</div>
+                  <div className={isDark ? 'text-slate-400' : 'text-slate-600'}>{t.about.stat4Label}</div>
                 </div>
               </div>
             </div>
@@ -169,94 +332,104 @@ export default function Home() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 px-6 bg-slate-950/50">
+      <section id="skills" className={`py-20 px-6 ${isDark ? 'bg-slate-950/50' : 'bg-sky-50/50'}`}>
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+          <h2 className={`text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r ${
+            isDark
+              ? 'from-blue-400 to-cyan-300'
+              : 'from-sky-700 to-blue-600'
+          } bg-clip-text text-transparent`}>
             {t.skills.title}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* AI & Machine Learning */}
-            <div className="p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
+            <div className={`p-6 bg-gradient-to-br border rounded-xl transition-all duration-300 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/20'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-lg hover:shadow-sky-500/30'
+            }`}>
               <div className="text-4xl mb-4">🤖</div>
-              <h3 className="text-2xl font-bold text-cyan-400 mb-4">{t.skills.aiTitle}</h3>
-              <ul className="space-y-2 text-slate-300">
-                <li>• Machine Learning (U of T)</li>
-                <li>• Deep Learning & Neural Networks</li>
-                <li>• LLMs & Transformers</li>
-                <li>• TensorFlow & PyTorch</li>
-                <li>• Computer Vision & NLP</li>
-                <li>• Recommendation Systems</li>
+              <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>{t.skills.aiTitle}</h3>
+              <ul className={`space-y-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                {t.skills.aiItems.map((item, index) => (
+                  <li key={index}>• {item}</li>
+                ))}
               </ul>
             </div>
 
             {/* Data Science */}
-            <div className="p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
+            <div className={`p-6 bg-gradient-to-br border rounded-xl transition-all duration-300 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/20'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-lg hover:shadow-sky-500/30'
+            }`}>
               <div className="text-4xl mb-4">📊</div>
-              <h3 className="text-2xl font-bold text-cyan-400 mb-4">{t.skills.dataTitle}</h3>
-              <ul className="space-y-2 text-slate-300">
-                <li>• Data Modeling & Analysis</li>
-                <li>• Python (3+ years)</li>
-                <li>• SQL & NoSQL Databases</li>
-                <li>• Data Visualization</li>
-                <li>• Statistical Analysis</li>
-                <li>• Big Data Processing</li>
+              <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>{t.skills.dataTitle}</h3>
+              <ul className={`space-y-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                {t.skills.dataItems.map((item, index) => (
+                  <li key={index}>• {item}</li>
+                ))}
               </ul>
             </div>
 
             {/* Web Development */}
-            <div className="p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
+            <div className={`p-6 bg-gradient-to-br border rounded-xl transition-all duration-300 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/20'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-lg hover:shadow-sky-500/30'
+            }`}>
               <div className="text-4xl mb-4">⚛️</div>
-              <h3 className="text-2xl font-bold text-cyan-400 mb-4">{t.skills.webTitle}</h3>
-              <ul className="space-y-2 text-slate-300">
-                <li>• Next.js & React</li>
-                <li>• TypeScript & JavaScript</li>
-                <li>• Tailwind CSS</li>
-                <li>• RESTful APIs</li>
-                <li>• Responsive Design</li>
-                <li>• Figma (UI/UX)</li>
+              <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>{t.skills.webTitle}</h3>
+              <ul className={`space-y-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                {t.skills.webItems.map((item, index) => (
+                  <li key={index}>• {item}</li>
+                ))}
               </ul>
             </div>
 
             {/* Cloud & DevOps */}
-            <div className="p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
+            <div className={`p-6 bg-gradient-to-br border rounded-xl transition-all duration-300 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/20'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-lg hover:shadow-sky-500/30'
+            }`}>
               <div className="text-4xl mb-4">☁️</div>
-              <h3 className="text-2xl font-bold text-cyan-400 mb-4">{t.skills.cloudTitle}</h3>
-              <ul className="space-y-2 text-slate-300">
-                <li>• Google Cloud Platform</li>
-                <li>• Alibaba Cloud (ACA Certified)</li>
-                <li>• Vercel Deployment</li>
-                <li>• Git & GitHub</li>
-                <li>• CI/CD Pipelines</li>
-                <li>• Docker Basics</li>
+              <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>{t.skills.cloudTitle}</h3>
+              <ul className={`space-y-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                {t.skills.cloudItems.map((item, index) => (
+                  <li key={index}>• {item}</li>
+                ))}
               </ul>
             </div>
 
             {/* AI Tools & Frameworks */}
-            <div className="p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
+            <div className={`p-6 bg-gradient-to-br border rounded-xl transition-all duration-300 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/20'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-lg hover:shadow-sky-500/30'
+            }`}>
               <div className="text-4xl mb-4">🛠️</div>
-              <h3 className="text-2xl font-bold text-cyan-400 mb-4">{t.skills.aiToolsTitle}</h3>
-              <ul className="space-y-2 text-slate-300">
-                <li>• Claude API (Anthropic)</li>
-                <li>• Hugging Face Transformers</li>
-                <li>• BERT & Attention Mechanisms</li>
-                <li>• Image Captioning Models</li>
-                <li>• Encoder-Decoder Architecture</li>
-                <li>• Edge AI & Visualization</li>
+              <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>{t.skills.aiToolsTitle}</h3>
+              <ul className={`space-y-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                {t.skills.aiToolsItems.map((item, index) => (
+                  <li key={index}>• {item}</li>
+                ))}
               </ul>
             </div>
 
             {/* Soft Skills */}
-            <div className="p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
+            <div className={`p-6 bg-gradient-to-br border rounded-xl transition-all duration-300 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/20'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-lg hover:shadow-sky-500/30'
+            }`}>
               <div className="text-4xl mb-4">💡</div>
-              <h3 className="text-2xl font-bold text-cyan-400 mb-4">{t.skills.softTitle}</h3>
-              <ul className="space-y-2 text-slate-300">
-                <li>• Project Management</li>
-                <li>• Team Collaboration</li>
-                <li>• Teaching & Mentoring (TA)</li>
-                <li>• Entrepreneurial Mindset</li>
-                <li>• Problem Solving</li>
-                <li>• English (IELTS 6.5, DET 125)</li>
+              <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>{t.skills.softTitle}</h3>
+              <ul className={`space-y-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                {t.skills.softItems.map((item, index) => (
+                  <li key={index}>• {item}</li>
+                ))}
               </ul>
             </div>
           </div>
@@ -266,19 +439,29 @@ export default function Home() {
       {/* Journey Timeline */}
       <section id="journey" className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+          <h2 className={`text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r ${
+            isDark
+              ? 'from-blue-400 to-cyan-300'
+              : 'from-sky-700 to-blue-600'
+          } bg-clip-text text-transparent`}>
             {t.journey.title}
           </h2>
 
           <div className="relative">
             {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-blue-500 to-cyan-500 hidden md:block"></div>
+            <div className={`absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b hidden md:block ${
+              isDark ? 'from-blue-500 to-cyan-500' : 'from-sky-600 to-blue-600'
+            }`}></div>
 
             <div className="space-y-12">
               {/* Thailand - High School */}
               <div className="relative flex items-center justify-end md:justify-start">
                 <div className="md:w-1/2 md:pr-12">
-                  <div className="p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
+                  <div className={`p-6 bg-gradient-to-br border rounded-xl transition-all duration-300 ${
+                    isDark
+                      ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/20'
+                      : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-lg hover:shadow-sky-500/30'
+                  }`}>
                     <div className="flex items-center gap-3 mb-3">
                       <div className="text-4xl">🇹🇭</div>
                       <div className="relative w-12 h-12">
@@ -290,17 +473,19 @@ export default function Home() {
                         />
                       </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-cyan-400 mb-2">Bangkok Christian College</h3>
-                    <p className="text-slate-400 text-sm mb-2">May 2011 - March 2023</p>
-                    <p className="text-slate-300 mb-3">High School - Graduated with 3.85 GPA</p>
-                    <ul className="text-slate-400 space-y-1">
-                      <li>• Strong academic foundation</li>
-                      <li>• Built passion for technology</li>
-                      <li>• Prepared for international experience</li>
+                    <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>{t.journey.bcc.name}</h3>
+                    <p className={`text-sm mb-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{t.journey.bcc.date}</p>
+                    <p className={`mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.journey.bcc.desc}</p>
+                    <ul className={`space-y-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                      <li>• {t.journey.bcc.point1}</li>
+                      <li>• {t.journey.bcc.point2}</li>
+                      <li>• {t.journey.bcc.point3}</li>
                     </ul>
                   </div>
                 </div>
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-blue-500 rounded-full border-4 border-slate-950 hidden md:block"></div>
+                <div className={`absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-4 hidden md:block ${
+                  isDark ? 'bg-blue-500 border-slate-950' : 'bg-sky-600 border-white'
+                }`}></div>
               </div>
 
               {/* United States */}
@@ -308,7 +493,11 @@ export default function Home() {
                 <div className="md:w-1/2 md:pl-12">
                   <div
                     onClick={() => setActiveModal('usa-exchange')}
-                    className="p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 cursor-pointer hover:scale-105"
+                    className={`p-6 bg-gradient-to-br border rounded-xl transition-all duration-300 cursor-pointer hover:scale-105 ${
+                      isDark
+                        ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/20'
+                        : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-lg hover:shadow-sky-500/30'
+                    }`}
                   >
                     <div className="flex items-center gap-3 mb-3">
                       <div className="text-4xl">🇺🇸</div>
@@ -321,14 +510,14 @@ export default function Home() {
                         />
                       </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-cyan-400 mb-2">South Side High School, Jackson TN</h3>
-                    <p className="text-slate-400 text-sm mb-2">July 2021 - July 2022 (1 year)</p>
-                    <p className="text-slate-300 mb-3">11th Grade Exchange Program</p>
-                    <ul className="text-slate-400 space-y-1 mb-4">
-                      <li>• First international experience</li>
-                      <li>• Cultural immersion in United States</li>
-                      <li>• Enhanced English proficiency</li>
-                      <li>• Built global perspective</li>
+                    <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>{t.journey.usa.name}</h3>
+                    <p className={`text-sm mb-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{t.journey.usa.date}</p>
+                    <p className={`mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.journey.usa.desc}</p>
+                    <ul className={`space-y-1 mb-4 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                      <li>• {t.journey.usa.point1}</li>
+                      <li>• {t.journey.usa.point2}</li>
+                      <li>• {t.journey.usa.point3}</li>
+                      <li>• {t.journey.usa.point4}</li>
                     </ul>
                     <div className="grid grid-cols-2 gap-3 mt-4">
                       <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
@@ -348,19 +537,27 @@ export default function Home() {
                         />
                       </div>
                     </div>
-                    <div className="mt-4 text-cyan-400 text-sm font-semibold flex items-center gap-2">
+                    <div className={`mt-4 text-sm font-semibold flex items-center gap-2 ${
+                      isDark ? 'text-cyan-400' : 'text-sky-700'
+                    }`}>
                       <span>Click to see more details</span>
                       <span>→</span>
                     </div>
                   </div>
                 </div>
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-blue-500 rounded-full border-4 border-slate-950 hidden md:block"></div>
+                <div className={`absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-4 hidden md:block ${
+                  isDark ? 'bg-blue-500 border-slate-950' : 'bg-sky-600 border-white'
+                }`}></div>
               </div>
 
               {/* Thailand - KMUTT */}
               <div className="relative flex items-center justify-end md:justify-start">
                 <div className="md:w-1/2 md:pr-12">
-                  <div className="p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
+                  <div className={`p-6 bg-gradient-to-br border rounded-xl transition-all duration-300 ${
+                    isDark
+                      ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/20'
+                      : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-lg hover:shadow-sky-500/30'
+                  }`}>
                     <div className="flex items-center gap-3 mb-3">
                       <div className="text-4xl">🇹🇭</div>
                       <div className="relative w-16 h-16">
@@ -372,24 +569,30 @@ export default function Home() {
                         />
                       </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-cyan-400 mb-2">KMUTT - King Mongkut&apos;s University</h3>
-                    <p className="text-slate-400 text-sm mb-2">August 2023 - Present</p>
-                    <p className="text-slate-300 mb-3">BE in Computer Engineering - Current GPA 3.72</p>
-                    <ul className="text-slate-400 space-y-1">
-                      <li>• Teacher Assistant at INNO-X Lab</li>
-                      <li>• Formula Racing Team Member</li>
-                      <li>• Multiple hackathon wins (Top 10)</li>
-                      <li>• Data Science & ML specialization</li>
+                    <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>{t.journey.kmutt.name}</h3>
+                    <p className={`text-sm mb-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{t.journey.kmutt.date}</p>
+                    <p className={`mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.journey.kmutt.desc}</p>
+                    <ul className={`space-y-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                      <li>• {t.journey.kmutt.point1}</li>
+                      <li>• {t.journey.kmutt.point2}</li>
+                      <li>• {t.journey.kmutt.point3}</li>
+                      <li>• {t.journey.kmutt.point4}</li>
                     </ul>
                   </div>
                 </div>
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-cyan-500 rounded-full border-4 border-slate-950 hidden md:block"></div>
+                <div className={`absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-4 hidden md:block ${
+                  isDark ? 'bg-cyan-500 border-slate-950' : 'bg-sky-500 border-white'
+                }`}></div>
               </div>
 
               {/* Canada - Current */}
               <div className="relative flex items-center justify-start md:justify-end">
                 <div className="md:w-1/2 md:pl-12">
-                  <div className="p-6 bg-gradient-to-br from-blue-600/30 to-cyan-600/30 border-2 border-cyan-500/50 rounded-xl shadow-xl shadow-cyan-500/30">
+                  <div className={`p-6 bg-gradient-to-br border-2 rounded-xl shadow-xl ${
+                    isDark
+                      ? 'from-blue-600/30 to-cyan-600/30 border-cyan-500/50 shadow-cyan-500/30'
+                      : 'from-sky-100 to-blue-100 border-sky-400 shadow-sky-500/30'
+                  }`}>
                     <div className="flex items-center gap-3 mb-3">
                       <div className="text-4xl">🇨🇦</div>
                       <div className="relative w-16 h-16 bg-white rounded-lg p-2">
@@ -401,19 +604,21 @@ export default function Home() {
                         />
                       </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-cyan-300 mb-2">University of Toronto - Current</h3>
-                    <p className="text-slate-300 text-sm mb-2">Sep 2025 - Dec 2025 (1 term)</p>
-                    <p className="text-slate-200 mb-3 font-semibold">SEED Scholarship Exchange Program ($10,200 CAD)</p>
-                    <ul className="text-slate-300 space-y-1">
-                      <li>• Advanced Machine Learning</li>
-                      <li>• Deep Learning Fundamentals</li>
-                      <li>• Python Programming in Depth</li>
-                      <li>• AI Conference attendance (UTMIST)</li>
-                      <li>• International research exposure</li>
+                    <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-300' : 'text-sky-800'}`}>{t.journey.uoft.name}</h3>
+                    <p className={`text-sm mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.journey.uoft.date}</p>
+                    <p className={`mb-3 font-semibold ${isDark ? 'text-slate-200' : 'text-slate-900'}`}>{t.journey.uoft.desc}</p>
+                    <ul className={`space-y-1 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                      <li>• {t.journey.uoft.point1}</li>
+                      <li>• {t.journey.uoft.point2}</li>
+                      <li>• {t.journey.uoft.point3}</li>
+                      <li>• {t.journey.uoft.point4}</li>
+                      <li>• {t.journey.uoft.point5}</li>
                     </ul>
                   </div>
                 </div>
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full border-4 border-slate-950 animate-pulse hidden md:block"></div>
+                <div className={`absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-r rounded-full border-4 animate-pulse hidden md:block ${
+                  isDark ? 'from-blue-500 to-cyan-500 border-slate-950' : 'from-sky-600 to-blue-600 border-white'
+                }`}></div>
               </div>
             </div>
           </div>
@@ -421,9 +626,13 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-6 bg-slate-950/50">
+      <section id="projects" className={`py-20 px-6 ${isDark ? 'bg-slate-950/50' : 'bg-white'}`}>
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+          <h2 className={`text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r ${
+            isDark
+              ? 'from-blue-400 to-cyan-300'
+              : 'from-sky-700 to-blue-600'
+          } bg-clip-text text-transparent`}>
             {t.projects.title}
           </h2>
 
@@ -431,7 +640,11 @@ export default function Home() {
             {/* Project 1 - Tron Crypto Tracker */}
             <div
               onClick={() => setActiveModal('tron-tracker')}
-              className="group p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105 cursor-pointer"
+              className={`group p-6 bg-gradient-to-br border rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer ${
+                isDark
+                  ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-blue-500/30'
+                  : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+              }`}
             >
               <div className="aspect-video relative rounded-lg mb-4 overflow-hidden">
                 <Image
@@ -441,15 +654,27 @@ export default function Home() {
                   className="object-cover"
                 />
               </div>
-              <h3 className="text-2xl font-bold text-cyan-400 mb-2">Tron Cryptocurrency Tracker</h3>
-              <p className="text-slate-300 mb-4">Desktop application tracking scammer transactions - Cyber Warrior Hackathon 2025 (Top 10)</p>
+              <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>Tron Cryptocurrency Tracker</h3>
+              <p className={`mb-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Desktop application tracking scammer transactions - Cyber Warrior Hackathon 2025 (Top 10)</p>
               <div className="flex flex-wrap gap-2 mb-4">
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/40 rounded-full text-xs text-blue-300">Python</span>
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/40 rounded-full text-xs text-blue-300">Blockchain</span>
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/40 rounded-full text-xs text-blue-300">Cybersecurity</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-sky-100 border-sky-400 text-sky-800'
+                }`}>Python</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-sky-100 border-sky-400 text-sky-800'
+                }`}>Blockchain</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-sky-100 border-sky-400 text-sky-800'
+                }`}>Cybersecurity</span>
               </div>
-              <div className="text-yellow-400 text-sm mb-2">🏆 Honorable Mention Award - 10,000 THB</div>
-              <div className="mt-4 text-cyan-400 text-sm font-semibold flex items-center gap-2">
+              <div className={`text-sm mb-2 ${isDark ? 'text-yellow-400' : 'text-yellow-700'}`}>🏆 Honorable Mention Award - 10,000 THB</div>
+              <div className={`mt-4 text-sm font-semibold flex items-center gap-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>
                 <span>Click for details</span>
                 <span>→</span>
               </div>
@@ -458,7 +683,11 @@ export default function Home() {
             {/* Project 2 - Crosswalk Safety App */}
             <div
               onClick={() => setActiveModal('crosswalk-app')}
-              className="group p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105 cursor-pointer"
+              className={`group p-6 bg-gradient-to-br border rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer ${
+                isDark
+                  ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-blue-500/30'
+                  : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+              }`}
             >
               <div className="aspect-video relative rounded-lg mb-4 overflow-hidden">
                 <Image
@@ -468,40 +697,74 @@ export default function Home() {
                   className="object-cover"
                 />
               </div>
-              <h3 className="text-2xl font-bold text-cyan-400 mb-2">Crosswalk Safety Application</h3>
-              <p className="text-slate-300 mb-4">AI-powered safety solution - E-SAN Thailand PMU-B Hackathon</p>
+              <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>Crosswalk Safety Application</h3>
+              <p className={`mb-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>AI-powered safety solution - E-SAN Thailand PMU-B Hackathon</p>
               <div className="flex flex-wrap gap-2 mb-4">
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/40 rounded-full text-xs text-blue-300">AI/ML</span>
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/40 rounded-full text-xs text-blue-300">Mobile</span>
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/40 rounded-full text-xs text-blue-300">IoT</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-sky-100 border-sky-400 text-sky-800'
+                }`}>AI/ML</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-sky-100 border-sky-400 text-sky-800'
+                }`}>Mobile</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-sky-100 border-sky-400 text-sky-800'
+                }`}>IoT</span>
               </div>
-              <div className="text-yellow-400 text-sm mb-2">🏆 Social Impact Award + Gold Certificate - 3,000 THB</div>
-              <div className="mt-4 text-cyan-400 text-sm font-semibold flex items-center gap-2">
+              <div className={`text-sm mb-2 ${isDark ? 'text-yellow-400' : 'text-yellow-700'}`}>🏆 Social Impact Award + Gold Certificate - 3,000 THB</div>
+              <div className={`mt-4 text-sm font-semibold flex items-center gap-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>
                 <span>Click for details</span>
                 <span>→</span>
               </div>
             </div>
 
             {/* Project 3 - English Vocabulary Website */}
-            <div className="group p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105">
+            <div className={`group p-6 bg-gradient-to-br border rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-105 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-blue-500/30'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+            }`}>
               <div className="aspect-video bg-gradient-to-br from-purple-600 to-pink-500 rounded-lg mb-4 flex items-center justify-center">
                 <span className="text-6xl">📚</span>
               </div>
-              <h3 className="text-2xl font-bold text-cyan-400 mb-2">English Vocabulary Training Website</h3>
-              <p className="text-slate-300 mb-4">Interactive learning platform with JSON data integration</p>
+              <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>English Vocabulary Training Website</h3>
+              <p className={`mb-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Interactive learning platform with JSON data integration</p>
               <div className="flex flex-wrap gap-2 mb-4">
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/40 rounded-full text-xs text-blue-300">Next.js</span>
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/40 rounded-full text-xs text-blue-300">TypeScript</span>
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/40 rounded-full text-xs text-blue-300">Tailwind CSS</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-sky-100 border-sky-400 text-sky-800'
+                }`}>Next.js</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-sky-100 border-sky-400 text-sky-800'
+                }`}>TypeScript</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-sky-100 border-sky-400 text-sky-800'
+                }`}>Tailwind CSS</span>
               </div>
-              <a href="https://englishnewwords.vercel.app" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">
+              <a href="https://englishnewwords.vercel.app" target="_blank" rel="noopener noreferrer" className={`font-semibold transition-colors ${
+                isDark ? 'text-cyan-400 hover:text-cyan-300' : 'text-sky-700 hover:text-sky-600'
+              }`}>
                 View Live Site →
               </a>
             </div>
 
             {/* Project 4 - T-Shirt Showcase */}
-            <div className="group p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105">
-              <div className="aspect-video relative rounded-lg mb-4 overflow-hidden bg-slate-900">
+            <div className={`group p-6 bg-gradient-to-br border rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-105 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-blue-500/30'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+            }`}>
+              <div className={`aspect-video relative rounded-lg mb-4 overflow-hidden ${isDark ? 'bg-slate-900' : 'bg-slate-100'}`}>
                 <Image
                   src="/images/projects/tshirt-overview.png"
                   alt="T-Shirt Showcase Website"
@@ -509,14 +772,28 @@ export default function Home() {
                   className="object-cover"
                 />
               </div>
-              <h3 className="text-2xl font-bold text-cyan-400 mb-2">T-Shirt Showcase Website</h3>
-              <p className="text-slate-300 mb-4">E-commerce showcase with Figma design system</p>
+              <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>T-Shirt Showcase Website</h3>
+              <p className={`mb-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>E-commerce showcase with Figma design system</p>
               <div className="flex flex-wrap gap-2 mb-4">
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/40 rounded-full text-xs text-blue-300">Next.js</span>
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/40 rounded-full text-xs text-blue-300">Figma</span>
-                <span className="px-3 py-1 bg-blue-500/20 border border-blue-500/40 rounded-full text-xs text-blue-300">UI/UX</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-sky-100 border-sky-400 text-sky-800'
+                }`}>Next.js</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-sky-100 border-sky-400 text-sky-800'
+                }`}>Figma</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-sky-100 border-sky-400 text-sky-800'
+                }`}>UI/UX</span>
               </div>
-              <a href="https://crazyfabric-websitex.vercel.app" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">
+              <a href="https://crazyfabric-websitex.vercel.app" target="_blank" rel="noopener noreferrer" className={`font-semibold transition-colors ${
+                isDark ? 'text-cyan-400 hover:text-cyan-300' : 'text-sky-700 hover:text-sky-600'
+              }`}>
                 View Live Site →
               </a>
             </div>
@@ -524,23 +801,426 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Awards Section */}
-      <section id="awards" className="py-20 px-6">
+      {/* Academic Activities Section */}
+      <section id="academic" className={`py-20 px-6 ${isDark ? 'bg-slate-950/50' : 'bg-sky-50'}`}>
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+          <div className="text-center mb-16">
+            <h2 className={`text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r ${
+              isDark
+                ? 'from-blue-400 to-cyan-300'
+                : 'from-sky-700 to-blue-600'
+            } bg-clip-text text-transparent`}>
+              {t.academic.title}
+            </h2>
+            <p className={`text-xl max-w-3xl mx-auto ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+              {t.academic.subtitle}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Conference 1 */}
+            <div className={`p-6 bg-gradient-to-br border rounded-xl hover:shadow-lg transition-all duration-300 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-blue-500/20'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+            }`}>
+              <div className="flex items-start gap-3 mb-4">
+                <div className="text-3xl">🎓</div>
+                <div className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-purple-500/20 border-purple-500/40 text-purple-300'
+                    : 'bg-purple-100 border-purple-400 text-purple-800'
+                }`}>
+                  {t.academic.conference1.type}
+                </div>
+              </div>
+              <h3 className={`text-xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>
+                {t.academic.conference1.title}
+              </h3>
+              <div className={`text-sm mb-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                📅 {t.academic.conference1.date}
+              </div>
+              <div className={`text-sm mb-3 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                📍 {t.academic.conference1.location}
+              </div>
+              <p className={`text-sm ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                {t.academic.conference1.desc}
+              </p>
+            </div>
+
+            {/* Conference 2 */}
+            <div className={`p-6 bg-gradient-to-br border rounded-xl hover:shadow-lg transition-all duration-300 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-blue-500/20'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+            }`}>
+              <div className="flex items-start gap-3 mb-4">
+                <div className="text-3xl">📊</div>
+                <div className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-green-500/20 border-green-500/40 text-green-300'
+                    : 'bg-green-100 border-green-400 text-green-800'
+                }`}>
+                  {t.academic.conference2.type}
+                </div>
+              </div>
+              <h3 className={`text-xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>
+                {t.academic.conference2.title}
+              </h3>
+              <div className={`text-sm mb-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                📅 {t.academic.conference2.date}
+              </div>
+              <div className={`text-sm mb-3 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                📍 {t.academic.conference2.location}
+              </div>
+              <p className={`text-sm ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                {t.academic.conference2.desc}
+              </p>
+            </div>
+
+            {/* Conference 3 */}
+            <div className={`p-6 bg-gradient-to-br border rounded-xl hover:shadow-lg transition-all duration-300 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-blue-500/20'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+            }`}>
+              <div className="flex items-start gap-3 mb-4">
+                <div className="text-3xl">🔬</div>
+                <div className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-blue-500/20 border-blue-500/40 text-blue-300'
+                    : 'bg-sky-100 border-sky-400 text-sky-800'
+                }`}>
+                  {t.academic.conference3.type}
+                </div>
+              </div>
+              <h3 className={`text-xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>
+                {t.academic.conference3.title}
+              </h3>
+              <div className={`text-sm mb-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                📅 {t.academic.conference3.date}
+              </div>
+              <div className={`text-sm mb-3 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                📍 {t.academic.conference3.location}
+              </div>
+              <p className={`text-sm ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                {t.academic.conference3.desc}
+              </p>
+            </div>
+
+            {/* Placeholder Cards */}
+            <div className={`p-6 bg-gradient-to-br border-2 border-dashed rounded-xl ${
+              isDark
+                ? 'from-slate-800/50 to-slate-700/30 border-slate-500/50'
+                : 'from-slate-100 to-slate-50 border-slate-400'
+            }`}>
+              <div className="flex items-start gap-3 mb-4">
+                <div className="text-3xl">📚</div>
+              </div>
+              <h3 className={`text-xl font-bold mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                {t.academic.placeholderTitle}
+              </h3>
+              <p className={`text-sm mb-3 ${isDark ? 'text-slate-500' : 'text-slate-600'}`}>
+                {t.academic.placeholderDesc}
+              </p>
+              <div className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-600'}`}>
+                💡 {t.academic.placeholderNote}
+              </div>
+            </div>
+
+            <div className={`p-6 bg-gradient-to-br border-2 border-dashed rounded-xl ${
+              isDark
+                ? 'from-slate-800/50 to-slate-700/30 border-slate-500/50'
+                : 'from-slate-100 to-slate-50 border-slate-400'
+            }`}>
+              <div className="flex items-start gap-3 mb-4">
+                <div className="text-3xl">🌐</div>
+              </div>
+              <h3 className={`text-xl font-bold mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                Add Your Event
+              </h3>
+              <p className={`text-sm mb-3 ${isDark ? 'text-slate-500' : 'text-slate-600'}`}>
+                Academic workshop, seminar, or conference attendance
+              </p>
+              <div className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-600'}`}>
+                💡 Placeholder - Ready for content!
+              </div>
+            </div>
+
+            <div className={`p-6 bg-gradient-to-br border-2 border-dashed rounded-xl ${
+              isDark
+                ? 'from-slate-800/50 to-slate-700/30 border-slate-500/50'
+                : 'from-slate-100 to-slate-50 border-slate-400'
+            }`}>
+              <div className="flex items-start gap-3 mb-4">
+                <div className="text-3xl">🏛️</div>
+              </div>
+              <h3 className={`text-xl font-bold mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                Add Your Event
+              </h3>
+              <p className={`text-sm mb-3 ${isDark ? 'text-slate-500' : 'text-slate-600'}`}>
+                Research presentation, poster session, or academic contribution
+              </p>
+              <div className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-600'}`}>
+                💡 Placeholder - Ready for content!
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Activities & Global Impact Section */}
+      <section id="activities" className={`py-20 px-6 ${isDark ? '' : 'bg-white'}`}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className={`text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r ${
+              isDark
+                ? 'from-blue-400 to-cyan-300'
+                : 'from-sky-700 to-blue-600'
+            } bg-clip-text text-transparent`}>
+              {t.activities.title}
+            </h2>
+            <p className={`text-xl max-w-3xl mx-auto ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+              {t.activities.subtitle}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            {/* Countries Visited */}
+            <div className={`p-6 bg-gradient-to-br border-2 rounded-xl text-center ${
+              isDark
+                ? 'from-blue-600/20 to-cyan-600/10 border-cyan-500/40'
+                : 'from-cyan-50 to-blue-50 border-cyan-400'
+            }`}>
+              <div className="text-5xl mb-3">🌍</div>
+              <div className={`text-4xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-700'}`}>{t.activities.stat1}</div>
+              <div className={`font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.activities.stat1Label}</div>
+              <div className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{t.activities.stat1Sub}</div>
+            </div>
+
+            {/* International Experiences */}
+            <div className={`p-6 bg-gradient-to-br border-2 rounded-xl text-center ${
+              isDark
+                ? 'from-purple-600/20 to-pink-600/10 border-purple-500/40'
+                : 'from-purple-50 to-pink-50 border-purple-400'
+            }`}>
+              <div className="text-5xl mb-3">🤝</div>
+              <div className={`text-4xl font-bold mb-2 ${isDark ? 'text-purple-400' : 'text-purple-700'}`}>{t.activities.stat2}</div>
+              <div className={`font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.activities.stat2Label}</div>
+              <div className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{t.activities.stat2Sub}</div>
+            </div>
+
+            {/* Community Impact */}
+            <div className={`p-6 bg-gradient-to-br border-2 rounded-xl text-center ${
+              isDark
+                ? 'from-green-600/20 to-teal-600/10 border-green-500/40'
+                : 'from-green-50 to-teal-50 border-green-400'
+            }`}>
+              <div className="text-5xl mb-3">❤️</div>
+              <div className={`text-4xl font-bold mb-2 ${isDark ? 'text-green-400' : 'text-green-700'}`}>{t.activities.stat3}</div>
+              <div className={`font-semibold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.activities.stat3Label}</div>
+              <div className={`text-sm mt-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{t.activities.stat3Sub}</div>
+            </div>
+          </div>
+
+          {/* Activity Cards */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Chicken Knight Volunteer */}
+            <div
+              onClick={() => setActiveModal('chicken-knight')}
+              className={`group p-6 bg-gradient-to-br border rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer ${
+                isDark
+                  ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-blue-500/30'
+                  : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+              }`}
+            >
+              <div className="aspect-video relative rounded-lg mb-4 overflow-hidden bg-gradient-to-br from-orange-600 to-yellow-500">
+                <div className="absolute inset-0 flex items-center justify-center text-8xl">🍗</div>
+              </div>
+              <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>{t.activities.chickenKnight.title}</h3>
+              <p className={`mb-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.activities.chickenKnight.desc}</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-orange-500/20 border-orange-500/40 text-orange-300'
+                    : 'bg-orange-100 border-orange-400 text-orange-800'
+                }`}>Volunteer Work</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-orange-500/20 border-orange-500/40 text-orange-300'
+                    : 'bg-orange-100 border-orange-400 text-orange-800'
+                }`}>Community Service</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-orange-500/20 border-orange-500/40 text-orange-300'
+                    : 'bg-orange-100 border-orange-400 text-orange-800'
+                }`}>Leadership</span>
+              </div>
+              <div className={`text-sm font-semibold flex items-center gap-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>
+                <span>{t.activities.chickenKnight.clickText}</span>
+                <span>→</span>
+              </div>
+            </div>
+
+            {/* Music & Band Activities */}
+            <div
+              onClick={() => setActiveModal('music-band')}
+              className={`group p-6 bg-gradient-to-br border rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer ${
+                isDark
+                  ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-blue-500/30'
+                  : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+              }`}
+            >
+              <div className="aspect-video relative rounded-lg mb-4 overflow-hidden bg-gradient-to-br from-purple-600 to-pink-500">
+                <div className="absolute inset-0 flex items-center justify-center text-8xl">🎸</div>
+              </div>
+              <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>{t.activities.musicBand.title}</h3>
+              <p className={`mb-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.activities.musicBand.desc}</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-purple-500/20 border-purple-500/40 text-purple-300'
+                    : 'bg-purple-100 border-purple-400 text-purple-800'
+                }`}>Music</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-purple-500/20 border-purple-500/40 text-purple-300'
+                    : 'bg-purple-100 border-purple-400 text-purple-800'
+                }`}>Performance</span>
+                <span className={`px-3 py-1 border rounded-full text-xs ${
+                  isDark
+                    ? 'bg-purple-500/20 border-purple-500/40 text-purple-300'
+                    : 'bg-purple-100 border-purple-400 text-purple-800'
+                }`}>Teamwork</span>
+              </div>
+              <div className={`text-sm font-semibold flex items-center gap-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>
+                <span>{t.activities.musicBand.clickText}</span>
+                <span>→</span>
+              </div>
+            </div>
+
+            {/* PLACEHOLDER: Add Your Activity 1 */}
+            <div className={`group p-6 bg-gradient-to-br border-2 border-dashed rounded-xl ${
+              isDark
+                ? 'from-slate-800/50 to-slate-700/30 border-slate-500/50'
+                : 'from-slate-100 to-slate-50 border-slate-400'
+            }`}>
+              <div className={`aspect-video relative rounded-lg mb-4 overflow-hidden flex items-center justify-center ${
+                isDark ? 'bg-slate-800/50' : 'bg-slate-200'
+              }`}>
+                <div className={`text-center ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                  <div className="text-6xl mb-2">📸</div>
+                  <p className="text-sm">Add your activity image here</p>
+                  <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>See IMAGE_GUIDE.md</p>
+                </div>
+              </div>
+              <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{t.activities.placeholderTitle}</h3>
+              <p className={`mb-4 ${isDark ? 'text-slate-500' : 'text-slate-600'}`}>{t.activities.placeholderDesc}</p>
+              <div className={`text-sm ${isDark ? 'text-slate-500' : 'text-slate-600'}`}>💡 {t.activities.placeholderNote}</div>
+            </div>
+
+            {/* PLACEHOLDER: Add Your Activity 2 */}
+            <div className={`group p-6 bg-gradient-to-br border-2 border-dashed rounded-xl ${
+              isDark
+                ? 'from-slate-800/50 to-slate-700/30 border-slate-500/50'
+                : 'from-slate-100 to-slate-50 border-slate-400'
+            }`}>
+              <div className={`aspect-video relative rounded-lg mb-4 overflow-hidden flex items-center justify-center ${
+                isDark ? 'bg-slate-800/50' : 'bg-slate-200'
+              }`}>
+                <div className={`text-center ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                  <div className="text-6xl mb-2">🏆</div>
+                  <p className="text-sm">Add your activity image here</p>
+                  <p className={`text-xs mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>See IMAGE_GUIDE.md</p>
+                </div>
+              </div>
+              <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Your Activity Title</h3>
+              <p className={`mb-4 ${isDark ? 'text-slate-500' : 'text-slate-600'}`}>Description of your leadership or sports activity</p>
+              <div className={`text-sm ${isDark ? 'text-slate-500' : 'text-slate-600'}`}>💡 Placeholder - Ready for your content!</div>
+            </div>
+          </div>
+
+          {/* International Experience Highlight */}
+          <div className={`mt-16 p-8 bg-gradient-to-br border-2 rounded-2xl ${
+            isDark
+              ? 'from-blue-950/50 to-cyan-950/30 border-cyan-500/30'
+              : 'from-cyan-50 to-blue-50 border-cyan-400'
+          }`}>
+            <h3 className={`text-3xl font-bold mb-6 text-center ${isDark ? 'text-cyan-400' : 'text-cyan-700'}`}>🌏 {t.activities.internationalTitle}</h3>
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Thailand */}
+              <div className="text-center">
+                <div className="text-6xl mb-4">🇹🇭</div>
+                <h4 className={`text-xl font-bold mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{t.activities.thailand.name}</h4>
+                <p className={`text-sm mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.activities.thailand.subtitle}</p>
+                <ul className={`text-sm space-y-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  <li>• {t.activities.thailand.point1}</li>
+                  <li>• {t.activities.thailand.point2}</li>
+                  <li>• {t.activities.thailand.point3}</li>
+                  <li>• {t.activities.thailand.point4}</li>
+                </ul>
+              </div>
+
+              {/* United States */}
+              <div className="text-center">
+                <div className="text-6xl mb-4">🇺🇸</div>
+                <h4 className={`text-xl font-bold mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{t.activities.usa.name}</h4>
+                <p className={`text-sm mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.activities.usa.subtitle}</p>
+                <ul className={`text-sm space-y-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  <li>• {t.activities.usa.point1}</li>
+                  <li>• {t.activities.usa.point2}</li>
+                  <li>• {t.activities.usa.point3}</li>
+                  <li>• {t.activities.usa.point4}</li>
+                </ul>
+              </div>
+
+              {/* Canada */}
+              <div className="text-center">
+                <div className="text-6xl mb-4">🇨🇦</div>
+                <h4 className={`text-xl font-bold mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>{t.activities.canada.name}</h4>
+                <p className={`text-sm mb-3 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{t.activities.canada.subtitle}</p>
+                <ul className={`text-sm space-y-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  <li>• {t.activities.canada.point1}</li>
+                  <li>• {t.activities.canada.point2}</li>
+                  <li>• {t.activities.canada.point3}</li>
+                  <li>• {t.activities.canada.point4}</li>
+                </ul>
+              </div>
+            </div>
+            <div className="mt-6 text-center">
+              <p className={`italic ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                &quot;{t.activities.internationalQuote}&quot;
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Awards Section */}
+      <section id="awards" className={`py-20 px-6 ${isDark ? '' : 'bg-white'}`}>
+        <div className="max-w-6xl mx-auto">
+          <h2 className={`text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r ${
+            isDark
+              ? 'from-blue-400 to-cyan-300'
+              : 'from-sky-700 to-blue-600'
+          } bg-clip-text text-transparent`}>
             {t.awards.title}
           </h2>
 
           <div className="space-y-6">
             {/* SEED Scholarship */}
-            <div className="p-6 bg-gradient-to-br from-yellow-900/20 to-yellow-800/10 border-2 border-yellow-500/40 rounded-xl hover:shadow-xl hover:shadow-yellow-500/20 transition-all duration-300">
+            <div className={`p-6 bg-gradient-to-br border-2 rounded-xl hover:shadow-xl transition-all duration-300 ${
+              isDark
+                ? 'from-yellow-900/20 to-yellow-800/10 border-yellow-500/40 hover:shadow-yellow-500/20'
+                : 'from-yellow-50 to-amber-50 border-yellow-400 hover:shadow-yellow-500/30'
+            }`}>
               <div className="flex items-start gap-4">
                 <div className="text-5xl">🏆</div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-yellow-400 mb-2">SEED Scholarship - Government of Canada</h3>
-                  <p className="text-slate-300 mb-2">Canada-ASEAN Scholarships and Educational Exchanges for Development</p>
-                  <p className="text-cyan-400 font-semibold mb-2">Prize: $10,200 CAD • Year: 2025</p>
-                  <p className="text-slate-400">Competitive scholarship awarded by Global Affairs Canada for exchange program at University of Toronto</p>
+                  <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-yellow-400' : 'text-yellow-700'}`}>SEED Scholarship - Government of Canada</h3>
+                  <p className={`mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Canada-ASEAN Scholarships and Educational Exchanges for Development</p>
+                  <p className={`font-semibold mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-700'}`}>Prize: $10,200 CAD • Year: 2025</p>
+                  <p className={`${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Competitive scholarship awarded by Global Affairs Canada for exchange program at University of Toronto</p>
                 </div>
               </div>
             </div>
@@ -548,16 +1228,20 @@ export default function Home() {
             {/* Cyber Warrior Hackathon */}
             <div
               onClick={() => setActiveModal('cyber-warrior')}
-              className="p-6 bg-gradient-to-br from-blue-900/20 to-cyan-900/10 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 cursor-pointer hover:scale-[1.02]"
+              className={`p-6 bg-gradient-to-br border rounded-xl hover:shadow-lg transition-all duration-300 cursor-pointer hover:scale-[1.02] ${
+                isDark
+                  ? 'from-blue-900/20 to-cyan-900/10 border-blue-500/30 hover:shadow-blue-500/20'
+                  : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+              }`}
             >
               <div className="flex items-start gap-4">
                 <div className="text-5xl">🥉</div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-cyan-400 mb-2">Cyber Warrior Hackathon 2025 - Honorable Mention (Top 10)</h3>
-                  <p className="text-slate-300 mb-2">Organized by KMUTT x Cyber Crime Investigation Bureau (CCIB)</p>
-                  <p className="text-cyan-400 font-semibold mb-2">Prize: 10,000 THB • Year: 2025</p>
-                  <p className="text-slate-400 mb-4">Team of 5 developed Tron Cryptocurrency tracking desktop application for scammer detection</p>
-                  <div className="mt-4 text-cyan-400 text-sm font-semibold flex items-center gap-2">
+                  <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>Cyber Warrior Hackathon 2025 - Honorable Mention (Top 10)</h3>
+                  <p className={`mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Organized by KMUTT x Cyber Crime Investigation Bureau (CCIB)</p>
+                  <p className={`font-semibold mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-700'}`}>Prize: 10,000 THB • Year: 2025</p>
+                  <p className={`mb-4 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Team of 5 developed Tron Cryptocurrency tracking desktop application for scammer detection</p>
+                  <div className={`mt-4 text-sm font-semibold flex items-center gap-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>
                     <span>Click for full details</span>
                     <span>→</span>
                   </div>
@@ -568,16 +1252,20 @@ export default function Home() {
             {/* E-SAN Hackathon */}
             <div
               onClick={() => setActiveModal('esan-hackathon')}
-              className="p-6 bg-gradient-to-br from-blue-900/20 to-cyan-900/10 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 cursor-pointer hover:scale-[1.02]"
+              className={`p-6 bg-gradient-to-br border rounded-xl hover:shadow-lg transition-all duration-300 cursor-pointer hover:scale-[1.02] ${
+                isDark
+                  ? 'from-blue-900/20 to-cyan-900/10 border-blue-500/30 hover:shadow-blue-500/20'
+                  : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+              }`}
             >
               <div className="flex items-start gap-4">
                 <div className="text-5xl">🥇</div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-cyan-400 mb-2">E-SAN Thailand PMU-B Hackathon - Social Impact Award + Gold Certificate</h3>
-                  <p className="text-slate-300 mb-2">Coding & AI Academy Season 2 by PMU-B x Khon Kaen University</p>
-                  <p className="text-cyan-400 font-semibold mb-2">Prize: 3,000 THB • Year: 2025</p>
-                  <p className="text-slate-400 mb-4">Team of 3 developed innovative crosswalk safety application with AI</p>
-                  <div className="mt-4 text-cyan-400 text-sm font-semibold flex items-center gap-2">
+                  <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>E-SAN Thailand PMU-B Hackathon - Social Impact Award + Gold Certificate</h3>
+                  <p className={`mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Coding & AI Academy Season 2 by PMU-B x Khon Kaen University</p>
+                  <p className={`font-semibold mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-700'}`}>Prize: 3,000 THB • Year: 2025</p>
+                  <p className={`mb-4 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Team of 3 developed innovative crosswalk safety application with AI</p>
+                  <div className={`mt-4 text-sm font-semibold flex items-center gap-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>
                     <span>Click to view photo gallery and details</span>
                     <span>→</span>
                   </div>
@@ -586,14 +1274,18 @@ export default function Home() {
             </div>
 
             {/* Top 20 Certificate */}
-            <div className="p-6 bg-gradient-to-br from-blue-900/20 to-cyan-900/10 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300">
+            <div className={`p-6 bg-gradient-to-br border rounded-xl hover:shadow-lg transition-all duration-300 ${
+              isDark
+                ? 'from-blue-900/20 to-cyan-900/10 border-blue-500/30 hover:shadow-blue-500/20'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+            }`}>
               <div className="flex items-start gap-4">
                 <div className="text-5xl">🏅</div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-cyan-400 mb-2">Top 20 Selected Teams - Outstanding Performance</h3>
-                  <p className="text-slate-300 mb-2">Certificate of Accomplishment</p>
-                  <p className="text-cyan-400 font-semibold mb-2">February 2025</p>
-                  <p className="text-slate-400">Recognition of outstanding performance and achievement</p>
+                  <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>Top 20 Selected Teams - Outstanding Performance</h3>
+                  <p className={`mb-2 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Certificate of Accomplishment</p>
+                  <p className={`font-semibold mb-2 ${isDark ? 'text-cyan-400' : 'text-cyan-700'}`}>February 2025</p>
+                  <p className={`${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Recognition of outstanding performance and achievement</p>
                 </div>
               </div>
             </div>
@@ -602,55 +1294,91 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-6 bg-slate-950/50">
+      <section id="contact" className={`py-20 px-6 ${isDark ? 'bg-slate-950/50' : 'bg-sky-50'}`}>
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+          <h2 className={`text-4xl md:text-5xl font-bold mb-8 bg-gradient-to-r ${
+            isDark
+              ? 'from-blue-400 to-cyan-300'
+              : 'from-sky-700 to-blue-600'
+          } bg-clip-text text-transparent`}>
             Let&apos;s Build Something Amazing
           </h2>
 
-          <p className="text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
+          <p className={`text-xl mb-12 max-w-2xl mx-auto ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
             I&apos;m actively seeking Data Science, AI Engineering, and Machine Learning opportunities in Thailand.
             Let&apos;s connect and create innovative solutions together!
           </p>
 
           <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <a href="mailto:patiharn.liang@gmail.com" className="p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 hover:scale-105">
+            <a href="mailto:patiharn.liang@gmail.com" className={`p-6 bg-gradient-to-br border rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-blue-500/20'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+            }`}>
               <div className="text-4xl mb-3">📧</div>
-              <h3 className="text-lg font-semibold text-cyan-400 mb-1">Email</h3>
-              <p className="text-slate-400 text-sm">patiharn.liang@gmail.com</p>
+              <h3 className={`text-lg font-semibold mb-1 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>Email</h3>
+              <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>patiharn.liang@gmail.com</p>
             </a>
 
-            <a href="https://github.com/Richyboy170" target="_blank" rel="noopener noreferrer" className="p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 hover:scale-105">
+            <a href="https://github.com/Richyboy170" target="_blank" rel="noopener noreferrer" className={`p-6 bg-gradient-to-br border rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-blue-500/20'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+            }`}>
               <div className="text-4xl mb-3">💻</div>
-              <h3 className="text-lg font-semibold text-cyan-400 mb-1">GitHub</h3>
-              <p className="text-slate-400 text-sm">@Richyboy170</p>
+              <h3 className={`text-lg font-semibold mb-1 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>GitHub</h3>
+              <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>@Richyboy170</p>
             </a>
 
-            <a href="tel:+66636145491" className="p-6 bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-blue-500/30 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 hover:scale-105">
+            <a href="tel:+66636145491" className={`p-6 bg-gradient-to-br border rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105 ${
+              isDark
+                ? 'from-blue-950/50 to-cyan-950/30 border-blue-500/30 hover:shadow-blue-500/20'
+                : 'from-sky-50 to-blue-50 border-sky-300 hover:shadow-sky-500/30'
+            }`}>
               <div className="text-4xl mb-3">📱</div>
-              <h3 className="text-lg font-semibold text-cyan-400 mb-1">Phone</h3>
-              <p className="text-slate-400 text-sm">+66 63-614-5491</p>
+              <h3 className={`text-lg font-semibold mb-1 ${isDark ? 'text-cyan-400' : 'text-sky-700'}`}>Phone</h3>
+              <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>+66 63-614-5491</p>
             </a>
           </div>
 
-          <div className="p-8 bg-gradient-to-br from-blue-600/20 to-cyan-600/20 border border-cyan-500/40 rounded-2xl mb-8">
+          <div className={`p-8 bg-gradient-to-br border rounded-2xl mb-8 ${
+            isDark
+              ? 'from-blue-600/20 to-cyan-600/20 border-cyan-500/40'
+              : 'from-cyan-50 to-blue-50 border-cyan-400'
+          }`}>
             <div className="text-4xl mb-4">📍</div>
-            <h3 className="text-2xl font-bold text-cyan-300 mb-2">Currently Based In</h3>
-            <p className="text-xl text-slate-200 font-semibold">Bangkok, Thailand 🇹🇭</p>
-            <p className="text-slate-400 mt-2">Bangkhuntian, Chomthong, Bangkok 10150</p>
+            <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>Currently Based In</h3>
+            <p className={`text-xl font-semibold ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>Bangkok, Thailand 🇹🇭</p>
+            <p className={`mt-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Bangkhuntian, Chomthong, Bangkok 10150</p>
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 text-sm">
-            <div className="px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-slate-300">
+            <div className={`px-4 py-2 border rounded-full ${
+              isDark
+                ? 'bg-blue-500/10 border-blue-500/30 text-slate-300'
+                : 'bg-sky-100 border-sky-400 text-sky-800'
+            }`}>
               IELTS: 6.5
             </div>
-            <div className="px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-slate-300">
+            <div className={`px-4 py-2 border rounded-full ${
+              isDark
+                ? 'bg-blue-500/10 border-blue-500/30 text-slate-300'
+                : 'bg-sky-100 border-sky-400 text-sky-800'
+            }`}>
               Duolingo: 125
             </div>
-            <div className="px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-slate-300">
+            <div className={`px-4 py-2 border rounded-full ${
+              isDark
+                ? 'bg-blue-500/10 border-blue-500/30 text-slate-300'
+                : 'bg-sky-100 border-sky-400 text-sky-800'
+            }`}>
               TOEFL iBT: 93-97
             </div>
-            <div className="px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-slate-300">
+            <div className={`px-4 py-2 border rounded-full ${
+              isDark
+                ? 'bg-blue-500/10 border-blue-500/30 text-slate-300'
+                : 'bg-sky-100 border-sky-400 text-sky-800'
+            }`}>
               CEFR: B2
             </div>
           </div>
@@ -658,12 +1386,16 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 bg-slate-950/80 border-t border-blue-500/20">
+      <footer className={`py-8 px-6 border-t ${
+        isDark
+          ? 'bg-slate-950/80 border-blue-500/20'
+          : 'bg-white border-sky-200'
+      }`}>
         <div className="max-w-6xl mx-auto text-center">
-          <p className="text-slate-400">
+          <p className={`${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
             {t.footer.copyright}
           </p>
-          <p className="text-slate-500 text-sm mt-2">
+          <p className={`text-sm mt-2 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
             {t.footer.tagline}
           </p>
         </div>
@@ -1278,6 +2010,220 @@ export default function Home() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Chicken Knight Volunteer Modal */}
+      <Modal
+        isOpen={activeModal === 'chicken-knight'}
+        onClose={() => setActiveModal(null)}
+        title="🍗 Chicken Knight Volunteer Activity"
+      >
+        <div className="space-y-6">
+          {/* Hero Section */}
+          <div className="bg-gradient-to-br from-orange-950/50 to-yellow-950/30 border border-orange-500/30 rounded-xl p-6">
+            <h4 className="text-2xl font-bold text-orange-400 mb-3">Community Service Through Food</h4>
+            <p className="text-slate-300 leading-relaxed mb-4">
+              Chicken Knight is a volunteer initiative where I actively participate in cooking and serving meals
+              for underprivileged communities, elderly care homes, and those in need. This hands-on community service
+              taught me the value of giving back and working together for social good.
+            </p>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="text-center p-3 bg-orange-500/10 rounded-lg">
+                <div className="text-3xl font-bold text-orange-400">100+</div>
+                <div className="text-slate-400 text-sm">Volunteer Hours</div>
+              </div>
+              <div className="text-center p-3 bg-orange-500/10 rounded-lg">
+                <div className="text-3xl font-bold text-orange-400">500+</div>
+                <div className="text-slate-400 text-sm">Meals Served</div>
+              </div>
+              <div className="text-center p-3 bg-orange-500/10 rounded-lg">
+                <div className="text-3xl font-bold text-orange-400">20+</div>
+                <div className="text-slate-400 text-sm">Community Events</div>
+              </div>
+            </div>
+          </div>
+
+          {/* PLACEHOLDER: Photo Gallery */}
+          <div>
+            <h4 className="text-xl font-bold text-cyan-400 mb-4">Volunteer Moments</h4>
+            <div className="grid md:grid-cols-2 gap-4">
+              {/* Placeholder 1 */}
+              <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-800/50 border-2 border-dashed border-slate-600/50 flex items-center justify-center">
+                <div className="text-center text-slate-400">
+                  <div className="text-6xl mb-2">📸</div>
+                  <p className="text-sm font-semibold">Cooking with the team</p>
+                  <p className="text-xs mt-1 text-slate-500">Add: public/images/activities/chicken-knight-cooking.jpg</p>
+                </div>
+              </div>
+
+              {/* Placeholder 2 */}
+              <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-800/50 border-2 border-dashed border-slate-600/50 flex items-center justify-center">
+                <div className="text-center text-slate-400">
+                  <div className="text-6xl mb-2">📸</div>
+                  <p className="text-sm font-semibold">Serving meals</p>
+                  <p className="text-xs mt-1 text-slate-500">Add: public/images/activities/chicken-knight-serving.jpg</p>
+                </div>
+              </div>
+
+              {/* Placeholder 3 */}
+              <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-800/50 border-2 border-dashed border-slate-600/50 flex items-center justify-center">
+                <div className="text-center text-slate-400">
+                  <div className="text-6xl mb-2">📸</div>
+                  <p className="text-sm font-semibold">Team collaboration</p>
+                  <p className="text-xs mt-1 text-slate-500">Add: public/images/activities/chicken-knight-team.jpg</p>
+                </div>
+              </div>
+
+              {/* Placeholder 4 */}
+              <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-800/50 border-2 border-dashed border-slate-600/50 flex items-center justify-center">
+                <div className="text-center text-slate-400">
+                  <div className="text-6xl mb-2">📸</div>
+                  <p className="text-sm font-semibold">Community impact</p>
+                  <p className="text-xs mt-1 text-slate-500">Add: public/images/activities/chicken-knight-community.jpg</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Impact & Learning */}
+          <div className="bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-cyan-500/30 rounded-xl p-6">
+            <h4 className="text-xl font-bold text-cyan-400 mb-3">What I Learned</h4>
+            <ul className="text-slate-300 space-y-2">
+              <li className="flex items-start gap-2">
+                <span className="text-cyan-400 mt-1">✓</span>
+                <span><strong>Teamwork & Collaboration:</strong> Working with diverse volunteers toward a common goal</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-cyan-400 mt-1">✓</span>
+                <span><strong>Empathy & Social Awareness:</strong> Understanding community needs and social challenges</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-cyan-400 mt-1">✓</span>
+                <span><strong>Leadership:</strong> Coordinating volunteer efforts and managing food distribution</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-cyan-400 mt-1">✓</span>
+                <span><strong>Time Management:</strong> Balancing volunteer work with academic commitments</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Add Your Photos Section */}
+          <div className="bg-slate-800/50 border-2 border-dashed border-slate-600/50 rounded-xl p-6 text-center">
+            <h4 className="text-lg font-bold text-slate-400 mb-3">📝 Ready to Add Your Photos!</h4>
+            <p className="text-slate-500 mb-2">Follow the IMAGE_GUIDE.md to add your volunteer photos</p>
+            <p className="text-slate-600 text-sm">Copy images to: <code className="bg-slate-900 px-2 py-1 rounded text-cyan-400">public/images/activities/</code></p>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Music & Band Performance Modal */}
+      <Modal
+        isOpen={activeModal === 'music-band'}
+        onClose={() => setActiveModal(null)}
+        title="🎸 Music & Band Performance"
+      >
+        <div className="space-y-6">
+          {/* Hero Section */}
+          <div className="bg-gradient-to-br from-purple-950/50 to-pink-950/30 border border-purple-500/30 rounded-xl p-6">
+            <h4 className="text-2xl font-bold text-purple-400 mb-3">Creativity Beyond Code</h4>
+            <p className="text-slate-300 leading-relaxed mb-4">
+              As a guitarist and performer in the school band, I discovered the power of creative expression
+              through music. Performing at school events, competitions, and community gatherings taught me
+              valuable lessons about collaboration, stage presence, and the universal language of music.
+            </p>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="text-center p-3 bg-purple-500/10 rounded-lg">
+                <div className="text-3xl font-bold text-purple-400">3+</div>
+                <div className="text-slate-400 text-sm">Years Playing</div>
+              </div>
+              <div className="text-center p-3 bg-purple-500/10 rounded-lg">
+                <div className="text-3xl font-bold text-purple-400">10+</div>
+                <div className="text-slate-400 text-sm">Performances</div>
+              </div>
+              <div className="text-center p-3 bg-purple-500/10 rounded-lg">
+                <div className="text-3xl font-bold text-purple-400">🎸</div>
+                <div className="text-slate-400 text-sm">Electric Guitar</div>
+              </div>
+            </div>
+          </div>
+
+          {/* PLACEHOLDER: Photo Gallery */}
+          <div>
+            <h4 className="text-xl font-bold text-cyan-400 mb-4">Performance Gallery</h4>
+            <div className="grid md:grid-cols-2 gap-4">
+              {/* Placeholder 1 */}
+              <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-800/50 border-2 border-dashed border-slate-600/50 flex items-center justify-center">
+                <div className="text-center text-slate-400">
+                  <div className="text-6xl mb-2">🎵</div>
+                  <p className="text-sm font-semibold">Live performance on stage</p>
+                  <p className="text-xs mt-1 text-slate-500">Add: public/images/activities/band-performance-1.jpg</p>
+                </div>
+              </div>
+
+              {/* Placeholder 2 */}
+              <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-800/50 border-2 border-dashed border-slate-600/50 flex items-center justify-center">
+                <div className="text-center text-slate-400">
+                  <div className="text-6xl mb-2">🎸</div>
+                  <p className="text-sm font-semibold">Playing guitar</p>
+                  <p className="text-xs mt-1 text-slate-500">Add: public/images/activities/band-guitar-solo.jpg</p>
+                </div>
+              </div>
+
+              {/* Placeholder 3 */}
+              <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-800/50 border-2 border-dashed border-slate-600/50 flex items-center justify-center">
+                <div className="text-center text-slate-400">
+                  <div className="text-6xl mb-2">👥</div>
+                  <p className="text-sm font-semibold">Band team photo</p>
+                  <p className="text-xs mt-1 text-slate-500">Add: public/images/activities/band-team.jpg</p>
+                </div>
+              </div>
+
+              {/* Placeholder 4 */}
+              <div className="relative aspect-video rounded-lg overflow-hidden bg-slate-800/50 border-2 border-dashed border-slate-600/50 flex items-center justify-center">
+                <div className="text-center text-slate-400">
+                  <div className="text-6xl mb-2">🎤</div>
+                  <p className="text-sm font-semibold">Rehearsal session</p>
+                  <p className="text-xs mt-1 text-slate-500">Add: public/images/activities/band-rehearsal.jpg</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Skills & Learning */}
+          <div className="bg-gradient-to-br from-blue-950/50 to-cyan-950/30 border border-cyan-500/30 rounded-xl p-6">
+            <h4 className="text-xl font-bold text-cyan-400 mb-3">Musical Journey & Skills</h4>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h5 className="font-semibold text-purple-400 mb-2">Musical Skills:</h5>
+                <ul className="text-slate-300 space-y-1 text-sm">
+                  <li>• Electric guitar performance</li>
+                  <li>• Reading music sheets</li>
+                  <li>• Improvisation & solo techniques</li>
+                  <li>• Rhythm and timing</li>
+                  <li>• Ensemble coordination</li>
+                </ul>
+              </div>
+              <div>
+                <h5 className="font-semibold text-purple-400 mb-2">Transferable Skills:</h5>
+                <ul className="text-slate-300 space-y-1 text-sm">
+                  <li>• Team synchronization</li>
+                  <li>• Performance under pressure</li>
+                  <li>• Creative problem-solving</li>
+                  <li>• Discipline & practice</li>
+                  <li>• Audience engagement</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Add Your Photos Section */}
+          <div className="bg-slate-800/50 border-2 border-dashed border-slate-600/50 rounded-xl p-6 text-center">
+            <h4 className="text-lg font-bold text-slate-400 mb-3">📝 Ready to Add Your Photos!</h4>
+            <p className="text-slate-500 mb-2">Follow the IMAGE_GUIDE.md to add your band performance photos</p>
+            <p className="text-slate-600 text-sm">Copy images to: <code className="bg-slate-900 px-2 py-1 rounded text-cyan-400">public/images/activities/</code></p>
           </div>
         </div>
       </Modal>
